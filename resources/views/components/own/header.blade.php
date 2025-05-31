@@ -1,5 +1,22 @@
 <header class="bg-blue-500 text-white p-4">
     <h1 class="text-lg">Mi Blog</h1>
+    <button id="darkModeToggle" class="bg-gray-300 dark:bg-gray-700 px-4 py-2 rounded">
+        🌙
+    </button>
+    <div class="flex justify-end space-x-4">
+        @guest
+            <a href="{{ route('login') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Iniciar Sesión</a>
+            <a href="{{ route('register') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Registrarse</a>
+        @else
+            {{-- usuario logueado --}}
+            <span> Hola, {{ Auth::user()->name }}</span>
+            <form method="POST" action="{{ route('logout') }}" class="inline">
+                @csrf
+                <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Cerrar Sesión</button>
+        @endguest
+    </div>
+    {{-- <button>iniciar sesión</button> --}}
+    {{-- <button>registrarse</button> --}}
 </header>
 <div class="container mx-auto mt-4">
     <nav class="bg-white shadow rounded-lg p-4">
