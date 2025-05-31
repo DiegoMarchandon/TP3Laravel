@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
@@ -14,6 +15,13 @@ Route::get('/about', function () {
     return view('about');
 })->name('about'); */
 
+Route::middleware(['auth'])->group(function(){
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/posts/update/{id}', [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+});
 Route::get('/',[HomeController::class, 'getHome'])->name('home.index');
 Route::get('/category',[CategoryController::class, 'getIndex'])->name('category.index');
 Route::get('/category/create', [CategoryController::class, 'getCreate'])->name('category.create');

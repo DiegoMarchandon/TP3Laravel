@@ -4,16 +4,20 @@
         🌙
     </button>
     <div class="flex justify-end space-x-4">
-        @guest
-            <a href="{{ route('login') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Iniciar Sesión</a>
-            <a href="{{ route('register') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Registrarse</a>
-        @else
-            {{-- usuario logueado --}}
-            <span> Hola, {{ Auth::user()->name }}</span>
+        @auth
+            <span>Hola, {{ Auth::user()->name }}</span>
+            <a href="{{ route('posts.create') }}">Nuevo Post</a>
             <form method="POST" action="{{ route('logout') }}" class="inline">
                 @csrf
                 <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Cerrar Sesión</button>
+            </form>
+        @endauth
+
+        @guest
+            <a href="{{ route('login') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Iniciar Sesión</a>
+            <a href="{{ route('register') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Registrarse</a>
         @endguest
+
     </div>
     {{-- <button>iniciar sesión</button> --}}
     {{-- <button>registrarse</button> --}}
