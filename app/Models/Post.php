@@ -17,11 +17,18 @@ class Post extends Model
         'poster',
         'habilitated',
         'content',
+        'category_id',
+        'user_id',
     ];
 
     public function likes()
 {
     return $this->hasMany(Like::class);
+}
+
+public function user()
+{
+    return $this->belongsTo(User::class);
 }
 
 public function category()

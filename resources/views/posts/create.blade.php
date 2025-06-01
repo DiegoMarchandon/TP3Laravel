@@ -15,9 +15,20 @@
             <label for="content">Contenido</label>
             <textarea name="content" id="content" rows="5" required></textarea>
         </div>
+
         <div>
-            <label for="image">Imagen</label>
-            <input type="file" name="image" id="image" accept="image/*">
+            <label for="category_id">Categoría</label>
+            <select name="category_id" id="category_id" required>
+                <option value="">Selecciona una categoría</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        
+        <div>
+            <label for="poster">Imagen</label>
+            <input type="file" name="poster" id="poster" accept="image/*">
         </div>
 
         
