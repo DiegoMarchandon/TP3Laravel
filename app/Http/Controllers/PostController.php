@@ -20,35 +20,43 @@ class PostController extends Controller
     {
         // Load the category and user relationship
         $post->load('category', 'user');
-
+        // dd($post->toArray());
         // Return the view with the post data
         return view('posts.show', compact('post'));
     }
 
     public function store(Request $request)
     {
+        // dd("en el store");
+        // dd($request->all());
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'poster' => 'nullable|string',
+            'poster' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'category_id' => 'required|exists:categories,id',
         ]);
-
+        // dd("pasó la validación");
         // $post = new Post();
         // $post->title = $request->title;
         // $post->content = $request->content;
         // $post->user_id = Auth::id();
         // $post->save();
 
+        // Handle the image upload if a poster is provided
+        $posterPath = null;
+        if($request->hasFile('poster')){
+            $posterPath = $request->file('poster')->store('posters','public');
+        }
+
         Post::create([
             'title' => $request->title,
             'content' => $request->content,
-            'poster' => $request->poster,
+            'poster' => $posterPath,
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
             'habilitated' => true, // Assuming posts are enabled by default
         ]);
-
+        dd("Post creado");
         return redirect()->route('home.index')->with('success', 'Post created successfully.');
     }
 }

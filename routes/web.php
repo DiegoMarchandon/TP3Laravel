@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
 });
 Route::get('/',[HomeController::class, 'getHome'])->name('home.index');
-Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::get('/category',[CategoryController::class, 'getIndex'])->name('category.index');
 Route::get('/category/create', [CategoryController::class, 'getCreate'])->name('category.create');
 Route::get('/category/show/{id}', [CategoryController::class, 'getShow'])->name('category.show');
