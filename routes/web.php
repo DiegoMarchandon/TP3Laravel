@@ -21,6 +21,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/posts/update/{id}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+    Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
+    Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('posts.comment');
 });
 Route::get('/',[HomeController::class, 'getHome'])->name('home.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');

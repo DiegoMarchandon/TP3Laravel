@@ -6,7 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Like;
 use App\Models\Comment;
+use App\Models\User;
+use App\Models\Category;
 
+/**
+ * @property User $user
+ * @property Category $category
+ * @property \Illuminate\Database\Eloquent\Collection|Like[] $likes
+ * @property \Illuminate\Database\Eloquent\Collection|Comment[] $comments
+ */
 class Post extends Model
 {
     use HasFactory;
@@ -24,6 +32,7 @@ class Post extends Model
     public function likes()
 {
     return $this->hasMany(Like::class);
+
 }
 
 public function user()
