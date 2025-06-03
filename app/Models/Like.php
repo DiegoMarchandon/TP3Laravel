@@ -9,6 +9,12 @@ class Like extends Model
 {
     use HasFactory;
 
+    // Campos asignables masivamente
+    protected $fillable = [
+        'user_id',
+        'post_id',
+    ];
+
     public function post(){
         return $this->belongsTo(Post::class);
     }

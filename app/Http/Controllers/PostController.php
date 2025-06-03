@@ -84,11 +84,17 @@ class PostController extends Controller
             'content' => 'required|max:1000',
         ]);
 
-        $comment = new Comment();
-        $comment->content = $request->content;
-        $comment->user_id = Auth::id();
-        $comment->post_id = $post->id;
-        $comment->save();
+        // $comment = new Comment();
+        // $comment->content = $request->content;
+        // $comment->user_id = Auth::id();
+        // $comment->post_id = $post->id;
+        // $comment->save();
+
+        $post->comments()->create([
+            'content' => $request->content,
+            'user_id' => Auth::id(),
+            'post_id' => $post->id,
+        ]);
 
         return back()->with('success', 'Comment added successfully.');
     }
