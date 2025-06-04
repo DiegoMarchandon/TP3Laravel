@@ -93,7 +93,7 @@ class PostController extends Controller
         $post->comments()->create([
             'content' => $request->content,
             'user_id' => Auth::id(),
-            'post_id' => $post->id,
+            // 'post_id' => $post->id,
         ]);
 
         return back()->with('success', 'Comment added successfully.');

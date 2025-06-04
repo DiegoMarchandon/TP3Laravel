@@ -22,8 +22,9 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/posts/update/{id}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
-    Route::post('/posts/{posts}/toggle-Like', [PostController::class, 'toggleLike'])->name('posts.toggleLike');
-    Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('posts.comment');
+    Route::post('/posts/{post}/toggle-Like', [PostController::class, 'toggleLike'])->name('posts.toggleLike');
+    // Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('posts.comment');
+    Route::post('/posts/{post}/make-comment', [PostController::class, 'makeComment'])->name('posts.makeComment');
 });
 Route::get('/',[HomeController::class, 'getHome'])->name('home.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
