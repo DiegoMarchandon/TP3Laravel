@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- <h1 class="text-xl font-bold">
+       
+    <h1 class="text-xl font-bold">
         @if($category)
         Posts en la categoría: {{ $category->name }}</h1>
         @else
@@ -24,6 +25,7 @@
         @empty
             <p class="text-gray-500">No hay posts en esta categoría.</p>
         @endforelse
-    </div> --}}
-    {{ route('posts.filterByCategory') }}
+    </div>
+    {{-- <h1>FilterPost</h1> --}}
+    {{-- {{ route('posts.filterByCategory') }} --}}
 @endsection

@@ -27,6 +27,8 @@
             </select>
             <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Filtrar</button>
         </form> 
+        {{-- <a href="{{ route('posts.filterByCategory', ['id' => 3]) }}">Probar Filtro ID 3</a> --}}
+        {{-- <a href="/posts/filter">Probar directo</a> --}}
     </div>
     {{-- <button>iniciar sesión</button> --}}
     {{-- <button>registrarse</button> --}}

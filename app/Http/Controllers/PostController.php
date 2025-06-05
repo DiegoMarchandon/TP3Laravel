@@ -118,8 +118,14 @@ class PostController extends Controller
 
     public function filterByCategory(Request $request)
     {
-        dd("Estoy en el método filterByCategory");
-        /* $id = $request->input('id'); // Obtiene el parámetro 'id' del query string
+        // $categoryId = $request->all(); // o $request->id
+
+        // Para debug visual
+        // dd($request->input('id'));
+        // dd($request);
+        // dd("Estoy en el método filterByCategory");
+        // return "estoy en el método filterByCategory";
+        $id = $request->input('id'); // Obtiene el parámetro 'id' del query string
 
         if ($id) {
             $category = Category::find($id); // Busca la categoría por ID
@@ -131,8 +137,8 @@ class PostController extends Controller
             $posts = Post::with('user')->get(); // Si no hay categoría seleccionada, muestra todos los posts
             $category = null; // No hay categoría seleccionada
         }
-
-        return view('posts.filter', compact('posts', 'category')); */
+        
+        return view('posts.filter', compact('posts', 'category'));
     }
 
     /* public function edit(Post $post)
