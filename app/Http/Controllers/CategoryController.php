@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -15,6 +16,16 @@ class CategoryController extends Controller
         return Post::findOrFail($id); // Helper method to find a post by ID or fail if not found
     }
 
+    public function getCategories()
+    {
+        $categories = Category::all(); // Fetch all categories to display in the index view
+        return view('components.own.header', compact('categories'));
+    }
+    public function getCategory($id)
+    {
+        $category = Category::findOrFail($id); // Fetch the category by ID, or fail if not found
+        return view('category.show', compact('category'));
+    }
     public function getIndex()
     {
         $posts = Post::all(); // Fetch all posts to display in the index view

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    //
+
     public function create()
     {
         $categories = Category::all();
@@ -98,4 +98,51 @@ class PostController extends Controller
 
         return back()->with('success', 'Comment added successfully.');
     }
+
+    /* public function filterByCategory(Request $request)
+    {
+        $id = $request->input('id');
+     
+        if($id){
+            $category = Category::findOrFail($id);
+            // Get all posts that belong to the specified category
+            $posts = Post::where('category_id', $category->id)->with('user')->get();
+        } else {
+            // If no category is specified, get all posts
+            $posts = Post::with('user')->get();
+            $category = null; // No category selected
+        }
+
+        return view('posts.filter', compact('posts', 'category'));
+    } */
+
+    public function filterByCategory(Request $request)
+    {
+        dd("Estoy en el método filterByCategory");
+        /* $id = $request->input('id'); // Obtiene el parámetro 'id' del query string
+
+        if ($id) {
+            $category = Category::find($id); // Busca la categoría por ID
+            if (!$category) {
+                return redirect()->route('home.index')->with('error', 'Categoría no encontrada.');
+            }
+            $posts = Post::where('category_id', $id)->with('user')->get();
+        } else {
+            $posts = Post::with('user')->get(); // Si no hay categoría seleccionada, muestra todos los posts
+            $category = null; // No hay categoría seleccionada
+        }
+
+        return view('posts.filter', compact('posts', 'category')); */
+    }
+
+    /* public function edit(Post $post)
+    {
+        // Ensure the authenticated user is the owner of the post
+        if (Auth::id() !== $post->user_id) {
+            return redirect()->route('home.index')->with('error', 'Unauthorized action.');
+        }
+
+        $categories = Category::all();
+        return view('posts.edit', compact('post', 'categories'));
+    } */
 }

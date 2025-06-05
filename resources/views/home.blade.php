@@ -22,6 +22,11 @@
                     </button>
                 </form>
     
+                {{-- comentarios --}}
+                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline ml-4">
+                    Comentarios ({{ $post->comments->count() }})
+                </a>
+
                 {{-- Enlace de leer más --}}
                 <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline ml-4">
                     Leer más

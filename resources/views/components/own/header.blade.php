@@ -17,7 +17,16 @@
             <a href="{{ route('login') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Iniciar Sesión</a>
             <a href="{{ route('register') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Registrarse</a>
         @endguest
-
+            <span>filtrar por categoría</span>
+        <form action="{{ route('posts.filterByCategory') }}" method="GET" class="inline">
+            <select name="id" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100" onchange="this.form.submit()">
+                <option value="">Todas las categorías</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Filtrar</button>
+        </form> 
     </div>
     {{-- <button>iniciar sesión</button> --}}
     {{-- <button>registrarse</button> --}}
