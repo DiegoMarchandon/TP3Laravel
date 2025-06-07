@@ -25,20 +25,15 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/posts/{post}/toggle-Like', [PostController::class, 'toggleLike'])->name('posts.toggleLike');
     // Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('posts.comment');
     Route::post('/posts/{post}/make-comment', [PostController::class, 'makeComment'])->name('posts.makeComment');
+    Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 });
 Route::get('/',[HomeController::class, 'getHome'])->name('home.index');
-Route::get('/posts/filter', [PostController::class, 'filterByCategory'])->name('posts.filterByCategory');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/filter/category', [PostController::class, 'filterByCategory'])->name('posts.filterByCategory');
+Route::get('/posts/filter/likes', [PostController::class, 'orderPostsBy'])->name('posts.orderPostsBy');
 Route::get('/category',[CategoryController::class, 'getIndex'])->name('category.index');
 Route::get('/category/create', [CategoryController::class, 'getCreate'])->name('category.create');
 Route::get('/category/show/{id}', [CategoryController::class, 'getShow'])->name('category.show');
 Route::get('/category/edit/{id}', [CategoryController::class, 'getEdit'])->name('category.edit');
-// Route::get('/posts/filter', function () {
-//     return 'Estoy en /posts/filter';
-// });
-// Route::get('/posts/filter', function (\Illuminate\Http\Request $request) {
-//     dd('Entraste a la ruta /posts/filter con ID: ' . $request->input('id'));
-// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -18,7 +18,7 @@
                     {{ $post->created_at->format('d/m/Y') }}
                 </p>
                 <p class="mt-2 text-gray-800">{{ Str::limit($post->content, 200) }}</p>
-                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline">
+                <a href="{{ route('home.index', $post->id) }}" class="text-blue-500 hover:underline">
                     Leer más
                 </a>
             </div>

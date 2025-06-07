@@ -22,10 +22,16 @@
                     </button>
                 </form>
     
-                {{-- comentarios --}}
-                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline ml-4">
+                {{-- comentarios botón --}}
+                <form action="{{ route('posts.makeComment', $post->id) }}" method="POST" class="mt-4 inline-block">
+                    @csrf
+                    <button type="submit" class="text-blue-500 hover:underline ml-4">
+                        Comentarios ({{ $post->comments->count() }})
+                    </button>
+                </form>
+                {{-- <a href="{{ route('posts.makeComment', $post->id) }}" class="text-blue-500 hover:underline ml-4">
                     Comentarios ({{ $post->comments->count() }})
-                </a>
+                </a> --}}
 
                 {{-- Enlace de leer más --}}
                 <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline ml-4">

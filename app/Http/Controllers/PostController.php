@@ -80,6 +80,12 @@ class PostController extends Controller
 
     public function makeComment(Request $request, Post $post)
     {
+
+        if (!Auth::check()) {
+            return redirect()->route('register')
+                ->with('error', 'Debes registrarte para comentar.');
+        }
+
         $request->validate([
             'content' => 'required|max:1000',
         ]);
@@ -93,7 +99,7 @@ class PostController extends Controller
         $post->comments()->create([
             'content' => $request->content,
             'user_id' => Auth::id(),
-            // 'post_id' => $post->id,
+            'post_id' => $post->id,
         ]);
 
         return back()->with('success', 'Comment added successfully.');
@@ -138,8 +144,48 @@ class PostController extends Controller
             $category = null; // No hay categoría seleccionada
         }
         
-        return view('posts.filter', compact('posts', 'category'));
+        return view('home', compact('posts', 'category'));
     }
+
+    /* public function orderPostsBy(Request $request)
+    {
+        $order = $request->input('order');
+        // Get all posts ordered by the number of likes
+        if($order !== 'asc' && $order !== 'desc') {
+            return redirect()->route('home.index')->with('error', 'Orden inválido.');
+        }else{
+            $posts = Post::withCount('likes')->orderBy('likes_count', $order)->get();
+            return view('home', ['posts' => $posts, 'category' => null]);
+        }
+    } */
+    
+    public function orderPostsBy(Request $request)
+    {
+        $metric = $request->input('metric', 'likes'); // por defecto likes
+        $order = $request->input('order', 'desc'); // por defecto descendente
+
+        if (!in_array($order, ['asc', 'desc']) || !in_array($metric, ['likes', 'comments'])) {
+            return redirect()->route('home.index')->with('error', 'Parámetros inválidos.');
+        }
+
+        $query = Post::query()->with('user');
+
+        if ($metric === 'likes') {
+            $query->withCount('likes')->orderBy('likes_count', $order);
+        } elseif ($metric === 'comments') {
+            $query->withCount('comments')->orderBy('comments_count', $order);
+        }
+
+        $posts = $query->get();
+
+        return view('home', [
+            'posts' => $posts,
+            'category' => $category ?? null,
+            'orderedBy' => $metric,
+            'orderDirection' => $order,
+        ]);
+    }
+
 
     /* public function edit(Post $post)
     {

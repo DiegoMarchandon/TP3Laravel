@@ -17,7 +17,9 @@
             <a href="{{ route('login') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Iniciar Sesión</a>
             <a href="{{ route('register') }}" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Registrarse</a>
         @endguest
-            <span>filtrar por categoría</span>
+        <span>filtrar por:</span>
+        
+        <span>Categoria</span>
         <form action="{{ route('posts.filterByCategory') }}" method="GET" class="inline">
             <select name="id" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100" onchange="this.form.submit()">
                 <option value="">Todas las categorías</option>
@@ -27,6 +29,19 @@
             </select>
             <button type="submit" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100">Filtrar</button>
         </form> 
+        <span>Ordenar por:</span>
+        <form action="{{ route('posts.orderPostsBy') }}" method="GET" class="inline">
+            <select name="metric" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100" onchange="this.form.submit()">
+                <option value="likes" @selected(request('metric') === 'likes')>Likes</option>
+                <option value="comments" @selected(request('metric') === 'comments')>Comentarios</option>
+            </select>
+            <select name="order" class="bg-white text-blue-500 px-4 py-2 rounded hover:bg-blue-100" onchange="this.form.submit()">
+                <option value="asc" @selected(request('order') === 'asc')>Menos a mas</option>
+                <option value="desc" @selected(request('order') === 'desc')>Mas a menos</option>
+            </select>
+        </form>
+        
+
         {{-- <a href="{{ route('posts.filterByCategory', ['id' => 3]) }}">Probar Filtro ID 3</a> --}}
         {{-- <a href="/posts/filter">Probar directo</a> --}}
     </div>
