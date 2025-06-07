@@ -58,7 +58,7 @@ class PostController extends Controller
             'category_id' => $request->category_id,
             'habilitated' => true, // Assuming posts are enabled by default
         ]);
-        dd("Post creado");
+        // dd("Post creado");
         return redirect()->route('home.index')->with('success', 'Post created successfully.');
     }
 
@@ -105,23 +105,6 @@ class PostController extends Controller
         return back()->with('success', 'Comment added successfully.');
     }
 
-    /* public function filterByCategory(Request $request)
-    {
-        $id = $request->input('id');
-     
-        if($id){
-            $category = Category::findOrFail($id);
-            // Get all posts that belong to the specified category
-            $posts = Post::where('category_id', $category->id)->with('user')->get();
-        } else {
-            // If no category is specified, get all posts
-            $posts = Post::with('user')->get();
-            $category = null; // No category selected
-        }
-
-        return view('posts.filter', compact('posts', 'category'));
-    } */
-
     public function filterByCategory(Request $request)
     {
         // $categoryId = $request->all(); // o $request->id
@@ -146,18 +129,6 @@ class PostController extends Controller
         
         return view('home', compact('posts', 'category'));
     }
-
-    /* public function orderPostsBy(Request $request)
-    {
-        $order = $request->input('order');
-        // Get all posts ordered by the number of likes
-        if($order !== 'asc' && $order !== 'desc') {
-            return redirect()->route('home.index')->with('error', 'Orden inválido.');
-        }else{
-            $posts = Post::withCount('likes')->orderBy('likes_count', $order)->get();
-            return view('home', ['posts' => $posts, 'category' => null]);
-        }
-    } */
     
     public function orderPostsBy(Request $request)
     {

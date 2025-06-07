@@ -6,7 +6,10 @@
 
     <div class="mt-6 space-y-6">
         @forelse($posts as $post)
-            <div class="bg-white shadow rounded p-4">
+            <div class="bg-white shadow rounded p-4 max-w-2xl w-full mx-auto break-words">
+                @if($post->poster)
+                    <img src="{{ asset('storage/' . $post->poster) }}" alt="Imagen del post" class="max-w-[300px] h-auto">
+                @endif
                 <h2 class="text-lg font-semibold">{{ $post->title }}</h2>
                 <p class="text-sm text-gray-500">
                     Publicado por {{ $post->user->name ?? 'Anónimo' }} 
@@ -23,15 +26,15 @@
                 </form>
     
                 {{-- comentarios botón --}}
-                <form action="{{ route('posts.makeComment', $post->id) }}" method="POST" class="mt-4 inline-block">
+                {{-- <form action="{{ route('posts.makeComment', $post->id) }}" method="POST" class="mt-4 inline-block">
                     @csrf
                     <button type="submit" class="text-blue-500 hover:underline ml-4">
                         Comentarios ({{ $post->comments->count() }})
                     </button>
-                </form>
-                {{-- <a href="{{ route('posts.makeComment', $post->id) }}" class="text-blue-500 hover:underline ml-4">
+                </form> --}}
+                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline ml-4">
                     Comentarios ({{ $post->comments->count() }})
-                </a> --}}
+                </a>
 
                 {{-- Enlace de leer más --}}
                 <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline ml-4">

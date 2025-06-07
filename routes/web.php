@@ -23,7 +23,6 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post}/toggle-Like', [PostController::class, 'toggleLike'])->name('posts.toggleLike');
-    // Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('posts.comment');
     Route::post('/posts/{post}/make-comment', [PostController::class, 'makeComment'])->name('posts.makeComment');
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 });
@@ -43,6 +42,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.index');
+    })->name('admin.index');
+    Route::get('/admin/users', [ProfileController::class, 'getUsers'])->name('admin.users');
+    Route::get('/admin/users/edit/{id}', [ProfileController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/admin/users/update/{id}', [ProfileController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/admin/users/delete/{id}', [ProfileController::class, 'destroyUser'])->name('admin.users.delete');
 });
 
 require __DIR__.'/auth.php';
