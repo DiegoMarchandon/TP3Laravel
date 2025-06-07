@@ -18,8 +18,8 @@ Route::get('/about', function () {
 Route::middleware(['auth'])->group(function(){
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
-    Route::put('/posts/update/{id}', [PostController::class, 'update'])->name('posts.update');
+    Route::put('/posts/update/{post}', [PostController::class, 'updatePost'])->name('posts.update');
+    Route::get('/posts/edit/{post}', [PostController::class, 'editPost'])->name('posts.edit');
     Route::delete('/posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post}/toggle-Like', [PostController::class, 'toggleLike'])->name('posts.toggleLike');

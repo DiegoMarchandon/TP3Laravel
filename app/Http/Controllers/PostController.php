@@ -29,12 +29,15 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        $posterPath = null; // para imagen local
+        $posterUrl = null;
         // dd("en el store");
         // dd($request->all());
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
             'poster' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'poster_url' => 'nullable|url|max:255', // Validación para URL de poster
             'category_id' => 'required|exists:categories,id',
         ]);
         // dd("pasó la validación");
@@ -44,16 +47,18 @@ class PostController extends Controller
         // $post->user_id = Auth::id();
         // $post->save();
 
-        // Handle the image upload if a poster is provided
-        $posterPath = null;
         if($request->hasFile('poster')){
             $posterPath = $request->file('poster')->store('posters','public');
+        }elseif($request->poster_url){
+            // If a URL is provided, you might want to validate it or handle it differently
+            $posterUrl = $request->poster_url;
         }
 
         Post::create([
             'title' => $request->title,
             'content' => $request->content,
             'poster' => $posterPath,
+            'poster_url' => $posterUrl, 
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
             'habilitated' => true, // Assuming posts are enabled by default
@@ -157,8 +162,10 @@ class PostController extends Controller
         ]);
     }
 
-
-    /* public function edit(Post $post)
+    /**
+     * Show the form for editing the specified post.
+     */
+    public function editPost(Post $post)
     {
         // Ensure the authenticated user is the owner of the post
         if (Auth::id() !== $post->user_id) {
@@ -167,5 +174,48 @@ class PostController extends Controller
 
         $categories = Category::all();
         return view('posts.edit', compact('post', 'categories'));
-    } */
+    }
+
+    /**
+     * Update the specified post in storage.
+     */
+    public function updatePost(Request $request, Post $post)
+    {
+        // Ensure the authenticated user is the owner of the post
+        if (Auth::id() !== $post->user_id) {
+            return redirect()->route('home.index')->with('error', 'Unauthorized action.');
+        }
+
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'poster' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'poster_url' => 'nullable|url|max:255',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        // Handle the image upload if a new poster is provided
+        $posterPath = $post->poster; // Keep the existing poster path
+        $posterUrl = $post->poster_url; // Keep the existing poster URL
+        if ($request->hasFile('poster')) {
+            $posterPath = $request->file('poster')->store('posters', 'public');
+            $posterUrl = null;
+        }
+        elseif ($request->filled('poster_url')) {
+            // If a URL is provided, you might want to validate it or handle it differently
+            $posterUrl = $request->poster_url;
+            $posterPath = null;
+        }
+
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'poster' => $posterPath,
+            'poster_url' => $posterUrl, 
+            'user_id' => Auth::id(), 
+            'category_id' => $request->category_id,
+        ]);
+
+        return redirect()->route('home.index', ['post' => $post])->with('success', 'Post updated successfully.');
+    }
 }

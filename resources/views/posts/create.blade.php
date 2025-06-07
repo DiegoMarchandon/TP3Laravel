@@ -37,8 +37,11 @@
         </div>
         
         <div>
-            <label for="poster">Imagen</label>
+            <label for="poster">Subir Imagen</label>
             <input type="file" name="poster" id="poster" accept="image/*">
+
+            <p class="mt-2 text-sm text-gray-500">O pegá un enlace:</p>
+            <input type="url" name="poster_url" id="poster_url" value="{{ old('poster_url', $post->poster_url ?? '') }}">
         </div>
 
         
