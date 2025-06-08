@@ -7,6 +7,10 @@
         <ul>
             <li><a href="/" class="block py-2">Inicio</a></li>
             <li><a href="/dashboard" class="block py-2">Dashboard</a></li>
+            @if (Auth::check() && Auth::user()->role == 'admin')
+                <li><a href="/admin" class="block py-2">Admin Panel</a></li>
+            @endif
         </ul>
+        
     </nav>
 </aside>
