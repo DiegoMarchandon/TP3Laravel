@@ -3,7 +3,10 @@
 @section('content')
     <h1 class="text-xl font-bold">Pantalla principal</h1>
     <p class="mt-4">Contenido de la pantalla principal de tu aplicación.</p>
+    @auth
+        <p>    Rol: {{ Auth::user()->role }}</p>
 
+    @endauth
     <div class="mt-6 space-y-6">
         @forelse($posts as $post)
             <div class="bg-white shadow rounded p-4 max-w-2xl w-full mx-auto break-words">
@@ -46,6 +49,16 @@
                     <a href="{{ route('posts.edit', $post->id) }}" class="text-green-500 hover:underline ml-4">
                         Editar
                     </a>
+                @endif
+
+                @if(Auth::check() && (($post->user_id ===Auth::id()) || (Auth::user()->role === 'admin')))
+                    <form action="{{ route('posts.disable', $post->id) }}" method="POST" class="inline-block ml-4">
+                        @csrf
+                        {{-- @method('DELETE') --}}
+                        <button type="submit" class="text-red-500 hover:underline">
+                            Deshabilitar
+                        </button>
+                    </form>
                 @endif
             </div>
         @empty

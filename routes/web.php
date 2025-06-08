@@ -15,12 +15,22 @@ Route::get('/about', function () {
     return view('about');
 })->name('about'); */
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.index');
+    })->name('admin.index');
+    Route::get('/admin/users', [ProfileController::class, 'getUsers'])->name('admin.users');
+    Route::get('/admin/users/edit/{id}', [ProfileController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/admin/users/update/{id}', [ProfileController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/admin/users/delete/{id}', [ProfileController::class, 'destroyUser'])->name('admin.users.delete');
+});
+
 Route::middleware(['auth'])->group(function(){
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts/store', [PostController::class, 'store'])->name('posts.store');
     Route::put('/posts/update/{post}', [PostController::class, 'updatePost'])->name('posts.update');
     Route::get('/posts/edit/{post}', [PostController::class, 'editPost'])->name('posts.edit');
-    Route::delete('/posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+    Route::delete('/posts/disable/{id}', [PostController::class, 'disablePost'])->name('posts.disable');
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post}/toggle-Like', [PostController::class, 'toggleLike'])->name('posts.toggleLike');
     Route::post('/posts/{post}/make-comment', [PostController::class, 'makeComment'])->name('posts.makeComment');
@@ -44,14 +54,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.index');
-    })->name('admin.index');
-    Route::get('/admin/users', [ProfileController::class, 'getUsers'])->name('admin.users');
-    Route::get('/admin/users/edit/{id}', [ProfileController::class, 'editUser'])->name('admin.users.edit');
-    Route::put('/admin/users/update/{id}', [ProfileController::class, 'updateUser'])->name('admin.users.update');
-    Route::delete('/admin/users/delete/{id}', [ProfileController::class, 'destroyUser'])->name('admin.users.delete');
-});
+
 
 require __DIR__.'/auth.php';

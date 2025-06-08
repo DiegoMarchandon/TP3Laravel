@@ -18,7 +18,7 @@ class AdminMiddleware
     {
         $user = Auth::user();
 
-        if(!$user || !$user->role !== 'admin') {
+        if(!$user || $user->role !== 'admin') {
             // If the user is not authenticated or not an admin, redirect to home
             return redirect()->route('home.index')->with('error', 'No tenés permiso para acceder a esta sección.');
         }

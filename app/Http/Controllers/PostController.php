@@ -218,4 +218,22 @@ class PostController extends Controller
 
         return redirect()->route('home.index', ['post' => $post])->with('success', 'Post updated successfully.');
     }
+
+    /**
+     * Disable the specified post.
+     */
+    public function disablePost($id)
+    {
+        $post = Post::findOrFail($id); // Find the post by ID or fail if not found
+
+        // Ensure the authenticated user is the owner of the post or an admin
+        if ((Auth::id() !== $post->user_id) && Auth::user()->role !== 'admin') {
+            return redirect()->route('home.index')->with('error', 'Unauthorized action.');
+        }
+
+        $post->habilitated = 0; // Disable the post
+        $post->save(); // Save the changes
+
+        return redirect()->route('home.index')->with('success', 'Post disabled successfully.');
+    }
 }
