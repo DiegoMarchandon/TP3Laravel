@@ -4,57 +4,6 @@
     <h1 class="text-xl font-bold text-gray-800 dark:text-gray-200">Pantalla principal</h1>
     <p class="mt-4">Contenido de la pantalla principal de tu aplicación.</p>
 
-    {{-- <div class="mt-6 space-y-6">
-        @forelse($posts as $post)
-            <div class="bg-white shadow rounded p-4 max-w-2xl w-full mx-auto break-words">
-                @if($post->poster)
-                    <img src="{{ asset('storage/' . $post->poster) }}" alt="Imagen del post" class="max-w-[300px] h-auto">
-                @elseif ($post->poster_url)
-                    <img src="{{ $post->poster_url }}" alt="Imagen del post" class="max-w-[300px] h-auto">
-                @endif
-                <h2 class="text-lg font-semibold">{{ $post->title }}</h2>
-                <p class="text-sm text-gray-500">
-                    Publicado por {{ $post->user->name ?? 'Anónimo' }} 
-                    en la categoría {{ $post->category->name ?? 'Sin categoría' }}
-                </p>
-                <p class="mt-2 text-gray-800">{{ Str::limit($post->content, 200) }}</p>
-    
-
-                <form action="{{ route('posts.toggleLike', $post->id) }}" method="POST" class="mt-4 inline-block">
-                    @csrf
-                    <button type="submit" class="text-red-500 hover:underline">
-                        ❤️ Me gusta ({{ $post->likes->count() }})
-                    </button>
-                </form>
-    
-                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline ml-4">
-                    Comentarios ({{ $post->comments->count() }})
-                </a>
-
-                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline ml-4">
-                    Leer más
-                </a>
-                @if($post->user_id ===Auth::id())
-
-                    <a href="{{ route('posts.edit', $post->id) }}" class="text-green-500 hover:underline ml-4">
-                        Editar
-                    </a>
-                @endif
-
-                @if(Auth::check() && (($post->user_id ===Auth::id()) || (Auth::user()->role === 'admin')))
-                    <form action="{{ route('posts.disable', $post->id) }}" method="POST" class="inline-block ml-4">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="text-red-500 hover:underline">
-                            Deshabilitar
-                        </button>
-                    </form>
-                @endif
-            </div>
-        @empty
-            <p class="text-gray-500">No hay publicaciones aún.</p>
-        @endforelse
-    </div> --}}
     <div class="mt-6 space-y-6">
         @forelse($posts as $post)
         <div> 
@@ -108,6 +57,32 @@
                                 </button>
                             </form>
                         @endif
+                        {{-- Reacciones con emojis --}}
+                        {{-- <div class="mt-3 flex space-x-2">
+                            @foreach($reactions as $reaction)
+                                <form action="{{ route('posts.react', ['post' => $post->id, 'reaction' => $reaction->id]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" title="{{ $reaction->name }}">
+                                        <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->name }}" class="w-7 h-7 inline">
+                                        {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}
+                                    </button>
+                                </form>
+                            @endforeach
+                        </div> --}}
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            @foreach($reactions as $reaction)
+                                <form action="{{ route('posts.react', ['post' => $post->id, 'reaction' => $reaction->id]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" title="{{ $reaction->name }}" class="flex items-center gap-1 px-2 py-1 bg-black/10 hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
+                                        {{-- <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->name }}" class="w-7 h-7 inline"> --}}
+                                        <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->name }}" class="w-7 h-7">
+                                        <span class="font-semibold">
+                                            {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}
+                                        </span>
+                                    </button>
+                                </form>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 @empty

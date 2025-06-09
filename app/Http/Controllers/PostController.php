@@ -236,4 +236,18 @@ class PostController extends Controller
 
         return redirect()->route('home.index')->with('success', 'Post disabled successfully.');
     }
+
+    public function indexFeed()
+    {
+        // Cargamos los posts con sus relaciones
+        $posts = Post::with(['user', 'category', 'likes', 'comments', 'reactions'])->latest()->get();
+
+        // Todas las reacciones disponibles (para mostrar los emojis)
+        $reactions = \App\Models\Reaction::all();
+
+        // Pasamos ambos datos a la vista
+        // return view('home', compact('posts', 'reactions'));
+        return compact('posts', 'reactions');
+    }
+
 }

@@ -50,5 +50,11 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    public function reactions()
+    {
+        return $this->belongsToMany(Reaction::class, 'post_reaction')
+            ->withPivot('user_id')
+            ->withTimestamps();
+    }
 
 }

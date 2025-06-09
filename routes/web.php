@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostReactionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
@@ -34,6 +35,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post}/toggle-Like', [PostController::class, 'toggleLike'])->name('posts.toggleLike');
     Route::post('/posts/{post}/make-comment', [PostController::class, 'makeComment'])->name('posts.makeComment');
+    Route::post('/posts/{post}/react/{reaction}', [PostReactionController::class, 'store'])->name('posts.react');
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 });
 Route::get('/',[HomeController::class, 'getHome'])->name('home.index');
