@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-custom-light {
+    background-image: url('/images/ob9Jwh.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-custom-dark {
+    background-image: url('/images/Tattoo62070.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

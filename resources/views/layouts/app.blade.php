@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en" class="bg-gray-100 dark:bg-gray-900">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +14,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-white shadow text-black dark:bg-gray-900 dark:text-white">
-        <div class="min-h-screen">
+    <body class='font-sans min-h-screen antialiased bg-custom-light shadow text-black dark:bg-custom-dark dark:text-white'>
+        <div class="min-h-screen dark:bg-gray-900">
             {{-- @include('layouts.navigation') --}}
             @include('components.own.header')
             <!-- Page Heading -->
@@ -28,7 +28,7 @@
             @endisset --}}
             <div class="flex">
                 @include('components.own.sidebar')
-                <main class="flex-1 p-6 bg-white">
+                <main class="flex-1 p-6 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200">
                     <!-- Page Content -->
                     {{-- {{ $slot }} --}}
                     @yield('content')
