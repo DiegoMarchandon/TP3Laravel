@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (toggle) {
-        toggle.addEventListener('click', () => {
+        toggle.addEventListener('change', () => {
             console.log('Toggle clicked');
             html.classList.toggle('dark');
             const isDark = html.classList.contains('dark');

@@ -58,23 +58,12 @@
                             </form>
                         @endif
                         {{-- Reacciones con emojis --}}
-                        {{-- <div class="mt-3 flex space-x-2">
-                            @foreach($reactions as $reaction)
-                                <form action="{{ route('posts.react', ['post' => $post->id, 'reaction' => $reaction->id]) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" title="{{ $reaction->name }}">
-                                        <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->name }}" class="w-7 h-7 inline">
-                                        {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}
-                                    </button>
-                                </form>
-                            @endforeach
-                        </div> --}}
                         <div class="flex flex-wrap gap-2 mt-3">
                             @foreach($reactions as $reaction)
                                 <form action="{{ route('posts.react', ['post' => $post->id, 'reaction' => $reaction->id]) }}" method="POST">
                                     @csrf
                                     <button type="submit" title="{{ $reaction->name }}" class="flex items-center gap-1 px-2 py-1 bg-black/10 hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
-                                        {{-- <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->name }}" class="w-7 h-7 inline"> --}}
+                                        
                                         <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->name }}" class="w-7 h-7">
                                         <span class="font-semibold">
                                             {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Reaction;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -41,16 +42,11 @@ class PostController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
         // dd("pasó la validación");
-        // $post = new Post();
-        // $post->title = $request->title;
-        // $post->content = $request->content;
-        // $post->user_id = Auth::id();
-        // $post->save();
 
         if($request->hasFile('poster')){
             $posterPath = $request->file('poster')->store('posters','public');
         }elseif($request->poster_url){
-            // If a URL is provided, you might want to validate it or handle it differently
+            // si la URL del poster es proporcionada, la usamos
             $posterUrl = $request->poster_url;
         }
 
@@ -61,7 +57,7 @@ class PostController extends Controller
             'poster_url' => $posterUrl, 
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
-            'habilitated' => true, // Assuming posts are enabled by default
+            'habilitated' => true, 
         ]);
         // dd("Post creado");
         return redirect()->route('home.index')->with('success', 'Post created successfully.');
@@ -131,8 +127,9 @@ class PostController extends Controller
             $posts = Post::with('user')->get(); // Si no hay categoría seleccionada, muestra todos los posts
             $category = null; // No hay categoría seleccionada
         }
+        $reactions = Reaction::all();
         
-        return view('home', compact('posts', 'category'));
+        return view('home', compact('posts', 'category', 'reactions'));
     }
     
     public function orderPostsBy(Request $request)
@@ -153,12 +150,14 @@ class PostController extends Controller
         }
 
         $posts = $query->get();
+        $reactions = Reaction::all();
 
         return view('home', [
             'posts' => $posts,
             'category' => $category ?? null,
             'orderedBy' => $metric,
             'orderDirection' => $order,
+            'reactions' => $reactions,
         ]);
     }
 
@@ -243,8 +242,7 @@ class PostController extends Controller
         $posts = Post::with(['user', 'category', 'likes', 'comments', 'reactions'])->latest()->get();
 
         // Todas las reacciones disponibles (para mostrar los emojis)
-        $reactions = \App\Models\Reaction::all();
-
+        $reactions = Reaction::all();
         // Pasamos ambos datos a la vista
         // return view('home', compact('posts', 'reactions'));
         return compact('posts', 'reactions');

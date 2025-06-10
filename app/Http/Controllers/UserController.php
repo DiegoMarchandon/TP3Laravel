@@ -30,7 +30,7 @@ class UserController extends Controller
     public function changeUserState($userID)
     {
         $user = User::findOrFail($userID);
-        $user->habilitated = !$user->habilitated; // Toggle habilitated state
+        $user->habilitated = !$user->habilitated; // Pongo el estado opuesto
         $user->save();
         return redirect()->back()->with('success', $user->habilitated);
     }

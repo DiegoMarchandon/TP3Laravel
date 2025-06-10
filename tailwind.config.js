@@ -30,6 +30,7 @@ export default {
             animation: {
                 'neon-line': 'neon-line 5s ease-in-out infinite',
             },
+            
         },
     },
 

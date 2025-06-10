@@ -9,7 +9,7 @@
     <nav>
         <div class="flex-1 p-4">
             <h2 class="text-xl font-semibold mb-4">Panel de Control</h2>
-            <p>Bienvenido al panel de control. Aquí puedes gestionar tu contenido.</p>
+            <p>Gestionar el contenido después (agregar notificaciones de respuestas, cambios de estado, sección de favoritos)</p>
         </div>
         <ul>
             <li><a href="/" class="block py-2">Inicio</a></li>
