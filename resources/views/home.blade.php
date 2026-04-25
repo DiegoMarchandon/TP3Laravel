@@ -6,6 +6,12 @@
 
     <div class="mt-6 space-y-6">
         @forelse($posts as $post)
+        <!-- 
+        Reacciones disponibles:
+        @foreach($reactions as $reaction)
+        - {{ $reaction->id}}: {{$reaction->name}} -> storage/{{$reaction->imagen_url}}
+        @endforeach
+        -->
         <div> 
             <div class="bg-gradient-to-br from-yellow-100 via-yellow-50 to-yellow-100 border border-yellow-300 text-gray-800 shadow-md rounded-xl p-6 max-w-2xl w-full mx-auto break-words
               transition-shadow duration-300 hover:shadow-lg 
