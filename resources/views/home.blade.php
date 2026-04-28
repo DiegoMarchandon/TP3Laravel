@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
 @section('content')
     <h1 class="text-xl font-bold text-gray-800 dark:text-gray-200">Pantalla principal</h1>
     <p class="mt-4">Contenido de la pantalla principal de tu aplicación.</p>
@@ -34,13 +35,19 @@
                         <form action="{{ route('posts.toggleLike', $post->id) }}" method="POST" class="inline-block">
                             @csrf
                             <button type="submit" class="text-red-600 hover:underline dark:text-red-400">
-                                ❤️ Me gusta ({{ $post->likes->count() }})
+                                <span style="font-family: 'Playfair Display'">
+                                    <img src="storage/logos/pulgar.png" class="h-4 w-6 inline" alt="icono de me gusta">    
+                                    ME GUSTA ({{ $post->likes->count() }})
+                                </span>
                             </button>
                         </form>
             
                         {{-- comentarios botón --}}
                         <a href="{{ route('posts.show', $post->id) }}" class="text-blue-600 hover:underline ml-4 dark:text-blue-400">
-                            Comentarios ({{ $post->comments->count() }})
+                            <span style="font-family: 'Playfair Display'">
+                                <img src="storage/logos/comentarios.png" class="h-4 w-6 inline" alt="icono de comentarios">  
+                                COMENTARIOS ({{ $post->comments->count() }})
+                            </span>
                         </a>
             
                         {{-- leer más --}}
@@ -68,7 +75,7 @@
                             @foreach($reactions as $reaction)
                                 <form action="{{ route('posts.react', ['post' => $post->id, 'reaction' => $reaction->id]) }}" method="POST">
                                     @csrf
-                                    <button type="submit" title="{{ $reaction->name }}" class="flex items-center gap-1 px-2 py-1 bg-black/10 hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
+                                    <button type="submit" title="{{ $reaction->name }}" class="flex items-center gap-1 px-2 py-1 {{$post->reactions()->where('reaction_id',$reaction->id)->wherePivot('user_id',Auth::id())->exists() ? 'bg-black/40':'bg-black/10'}}  hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
                                         
                                         <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->name }}" class="w-7 h-7">
                                         <span class="font-semibold">

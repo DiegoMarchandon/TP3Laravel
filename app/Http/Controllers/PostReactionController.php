@@ -14,10 +14,15 @@ class PostReactionController extends Controller
     $userId = Auth::id();
 
     // Evitar duplicados: permitir una reacción por tipo por usuario
-    $post->reactions()->detach($reactionId, ['user_id' => $userId]);
+    // $post->reactions()->detach($reactionId, ['user_id' => $userId]);
 
-    // Añadir reacción
-    $post->reactions()->attach($reactionId, ['user_id' => $userId]);
+    if($post->reactions()->where('reaction_id',$reactionId)->wherePivot('user_id',$userId)->exists()){
+        $post->reactions()->wherePivot('user_id',$userId)->detach($reactionId);
+    }else{
+        // Añadir reacción
+        $post->reactions()->attach($reactionId, ['user_id' => $userId]);
+    }
+
 
     return back();
 }
