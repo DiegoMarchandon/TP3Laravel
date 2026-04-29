@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
     <body class='font-sans min-h-screen antialiased bg-custom-light shadow text-black dark:bg-custom-dark dark:text-white'>
         <div class="min-h-screen dark:bg-gray-900">

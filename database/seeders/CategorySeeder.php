@@ -13,7 +13,6 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
         Category::insert([
             ['name' => 'Tecnología'],
             ['name' => 'Salud'],

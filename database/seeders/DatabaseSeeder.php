@@ -15,8 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(ReaccionesSeeder::class);
-        User::factory(10)->create();
-        $this->call(PostSeeder::class);
+        // Seeders necesarios
+        $this->call([
+            ReaccionesSeeder::class,
+            CategorySeeder::class,      // ← Categorías (originales)
+            AdminSeeder::class,         // ← Usuario admin
+        ]);
+
+        // Crear algunos usuarios aleatorios para testing
+        User::factory(5)->create();
     }
 }
