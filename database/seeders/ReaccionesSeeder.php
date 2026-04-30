@@ -42,6 +42,10 @@ class ReaccionesSeeder extends Seeder
                 'nombre' => 'think',
                 'imagen_url' => 'reacciones/think.png',
             ],
+            [
+                'nombre' => 'saved',
+                'imagen_url' => 'reacciones/bookmark.png',
+            ]
         ]);
     }
 }
