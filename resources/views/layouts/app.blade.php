@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-100 dark:bg-gray-900">
+<html lang="en" class=" dark:bg-gray-900">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,23 +15,15 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
-    <body class='font-sans min-h-screen antialiased bg-custom-light shadow text-black dark:bg-custom-dark dark:text-white'>
-        <div class="min-h-screen dark:bg-gray-900">
-            {{-- @include('layouts.navigation') --}}
+    <body class='font-sans h-screen antialiased text-black dark:bg-custom-dark dark:text-white'>
+        <div class="h-screen bg-with-image dark:bg-gray-900">
             @include('components.own.header')
-            <!-- Page Heading -->
-            {{-- @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset --}}
+
             <div class="flex">
                 @include('components.own.sidebar')
-                <main class="flex-1 p-6 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200">
-                    <!-- Page Content -->
-                    {{-- {{ $slot }} --}}
+                <main class="flex-1 p-6 bg-transparent h-screen text-gray-900 dark:text-gray-200"
+                style="background-image: url('{{ asset('storage/texturas/blogBackground.png') }}'); opacity: 0.4;"
+                >
                     @yield('content')
                     
                 </main>

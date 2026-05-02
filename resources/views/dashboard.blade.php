@@ -9,8 +9,8 @@
             md:flex-column">
             <li><button @click="activeView = 'general'" :class="activeView === 'general' ? 'font-bold' : ''">Vista General</button></li>
             <li><button @click="activeView = 'posts'" :class="activeView === 'posts' ? 'font-bold' : ''">Publicaciones</button></li>
-            <li><button @click="activeView = 'saved'" :class="activeView === 'saved' ? 'font-bold' : ''">Guardado</button></li>
-            <li><button @click="activeView = 'comments'" :class="activeView === 'comments' ? 'font-bold' : ''">Comentarios</button></li>
+            <li><button @click="activeView = 'settings'" :class="activeView === 'settings' ? 'font-bold' : ''">Configuración</button></li>
+            {{-- <li><button @click="activeView = 'comments'" :class="activeView === 'comments' ? 'font-bold' : ''">Comentarios</button></li> --}}
         </ul>
     </div>
 
@@ -28,8 +28,8 @@
         Posts section
     </div>
     
-    <div x-show="activeView === 'saved'">
-        Saved section
+    <div x-show="activeView === 'settings'">
+        @include('dashboard.edit-profile-form')
     </div>
     
     <div x-show="activeView === 'comments'">
