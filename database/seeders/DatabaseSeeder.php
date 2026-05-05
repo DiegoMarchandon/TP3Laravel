@@ -15,14 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Crear algunos usuarios aleatorios para testing
+        User::factory(5)->create();
+        
         // Seeders necesarios
         $this->call([
             ReaccionesSeeder::class,
             CategorySeeder::class,      // ← Categorías (originales)
+            PostSeeder::class,
+            TattooPostSeeder::class,
             AdminSeeder::class,         // ← Usuario admin
         ]);
 
-        // Crear algunos usuarios aleatorios para testing
-        User::factory(5)->create();
     }
 }

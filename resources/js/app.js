@@ -6,12 +6,13 @@ Alpine.start();
 console.log('Alpine.js initialized');
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded and parsed');
-    const toggle = document.getElementById('darkModeToggle');
+    const toggle = document.querySelector('#darkModeToggle input');
     const html = document.documentElement;
 
     // Cargar modo oscuro desde localStorage
     if (localStorage.getItem('theme') === 'dark') {
         html.classList.add('dark');
+        if (toggle) toggle.checked = true;
     }
 
     if (toggle) {

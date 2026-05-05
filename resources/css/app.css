@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* .bg-image {
+  background-image: 
+  linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)), 
+  url('/storage/texturas/blogBackground.png');
+    background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+} */
+
+/* html.dark .bg-image {
+  background-image: 
+  linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)), 
+  url('/storage/texturas/blogBackground.png');
+
+} */
+
+/* .bg-login-image {
+  background-image: url('/storage/texturas/LogInBackground.png'); 
+  background-size: cover; 
+  background-attachment: fixed; 
+  background-position: center;
+} */
+
 .bg-with-image {
   position: relative;
   overflow: hidden;

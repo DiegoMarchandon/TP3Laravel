@@ -5,7 +5,7 @@
     {{-- <h1 class="text-xl font-bold text-gray-800 dark:text-gray-200">Pantalla principal</h1> --}}
     {{-- <p class="mt-4">Contenido de la pantalla principal de tu aplicación.</p> --}}
 
-    <div class="mt-6 flex justify-center space-y-6">
+    <div class="mt-6 flex justify-center flex-col space-y-6">
         @forelse($posts as $post)
             <x-post-card :post="$post" :reactions="$reactions" />
         @empty

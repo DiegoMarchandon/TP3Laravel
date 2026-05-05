@@ -15,14 +15,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
-    <body class='font-sans h-screen antialiased text-black dark:bg-custom-dark dark:text-white'>
-        <div class="h-screen bg-with-image dark:bg-gray-900">
-            @include('components.own.header')
+    <body class='font-sans min-h-screen antialiased text-black dark:bg-custom-dark dark:text-white'>
+        @include('components.own.header')
+        <div class="min-h-screen overflow-y-auto bg-with-image dark:bg-gray-900">
 
             <div class="flex">
                 @include('components.own.sidebar')
-                <main class="flex-1 p-6 bg-transparent h-screen text-gray-900 dark:text-gray-200"
-                style="background-image: url('{{ asset('storage/texturas/blogBackground.png') }}'); opacity: 0.4;"
+                <main class="flex-1 p-6 bg-transparent text-gray-900 dark:text-gray-200"
+                style="background-image: linear-gradient(rgba(255, 255, 255, 0.45)), url('{{ asset('storage/texturas/blogBackground.png') }}');"
                 >
                     @yield('content')
                     

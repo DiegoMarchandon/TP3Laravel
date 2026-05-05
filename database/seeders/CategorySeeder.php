@@ -14,10 +14,10 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Category::insert([
-            ['name' => 'Tecnología'],
-            ['name' => 'Salud'],
-            ['name' => 'Deportes'],
-            ['name' => 'Viajes'],
+            ['name' => 'Diseños'],
+            ['name' => 'Información'],
+            ['name' => 'Mis Tatuajes'],
+            ['name' => 'Ayuda'],
         ]);
     }
 }

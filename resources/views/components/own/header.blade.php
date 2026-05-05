@@ -73,25 +73,39 @@
             <!-- Filtros -->
             <div class="flex flex-wrap items-center gap-2">
                 <span>Filtrar por:</span>
-                <form action="{{ route('posts.filterByCategory') }}" method="GET" class="inline">
-                    <select name="id" class="px-3 py-2 rounded bg-amber-50 text-amber-900 border border-amber-200 dark:bg-gray-800 dark:text-amber-100" onchange="this.form.submit()">
-                        <option value="">Todas las categorías</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
+                <form action="{{ route('posts.filterByCategory') }}" method="GET" class="inline w-40">
+                    @php
+                        $categoryOptions = ['' => 'Todas las categorías'];
+                        foreach ($categories as $category) {
+                            $categoryOptions[$category->id] = $category->name;
+                        }
+                    @endphp
+                    <x-own.custom-select 
+                        name="id" 
+                        placeholder="Todas las categorías"
+                        :options="$categoryOptions"
+                        :selected="request('id')"
+                    />
                 </form>
 
                 <span>Ordenar por:</span>
-                <form action="{{ route('posts.orderPostsBy') }}" method="GET" class="inline flex gap-2">
-                    <select name="metric" class="px-3 py-2 rounded bg-white text-gray-800 dark:bg-gray-700 dark:text-white" onchange="this.form.submit()">
-                        <option value="likes" @selected(request('metric') === 'likes')>Likes</option>
-                        <option value="comments" @selected(request('metric') === 'comments')>Comentarios</option>
-                    </select>
-                    <select name="order" class="px-3 py-2 rounded bg-white text-gray-800 dark:bg-gray-700 dark:text-white" onchange="this.form.submit()">
-                        <option value="asc" @selected(request('order') === 'asc')>Menos a más</option>
-                        <option value="desc" @selected(request('order') === 'desc')>Más a menos</option>
-                    </select>
+                <form action="{{ route('posts.orderPostsBy') }}" method="GET" class="flex gap-2">
+                    <div class="w-40">
+                        <x-own.custom-select 
+                            name="metric" 
+                            placeholder="Seleccionar"
+                            :options="['likes' => 'Likes', 'comments' => 'Comentarios']"
+                            :selected="request('metric')"
+                        />
+                    </div>
+                    <div class="w-40">
+                        <x-own.custom-select 
+                            name="order" 
+                            placeholder="Seleccionar"
+                            :options="['asc' => 'Menos a más', 'desc' => 'Más a menos']"
+                            :selected="request('order')"
+                        />
+                    </div>
                 </form>
             </div>
 

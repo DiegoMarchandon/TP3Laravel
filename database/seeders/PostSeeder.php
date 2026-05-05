@@ -14,14 +14,14 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::first();
+        // $user = User::first();
         
         Post::create([
             'title' => 'First Post',
             'poster' => 'posters/5eioTRBGfZJLU1xXkCuP5IFIAzwXLz7MNbiF51eJ.png',
             'habilitated' => true,
             'content' => 'This is the content of the first post.',
-            'user_id' => $user->id,
+            'user_id' => User::findOrFail(2)->id,
         ]);
 
         Post::create([
@@ -29,7 +29,7 @@ class PostSeeder extends Seeder
             'poster' => 'posters/9oiz5O5eS5xMtO5mKjf2dBmZH1RuBnf3mDr9UczN.png',
             'habilitated' => false,
             'content' => 'This is the content of the second post.',
-            'user_id' => $user->id,
+            'user_id' => User::findOrFail(3)->id,
         ]);
 
         Post::create([
@@ -37,7 +37,7 @@ class PostSeeder extends Seeder
             'poster' => 'posters/A5VFYgbIdtMH4uvQipH58FWk82loSZOU5hE5br2i.png',
             'habilitated' => true,
             'content' => 'This is the content of the third post.',
-            'user_id' => $user->id,
+            'user_id' => User::findOrFail(4)->id,
         ]);
     }
 }
