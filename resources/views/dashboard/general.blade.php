@@ -9,19 +9,98 @@
 <div x-data="{ activeTab: 'liked' }">
 
     {{-- Sección 1: Tarjeta de datos del usuario --}}
-    <div class="user-profile-card mb-8">
+    <div class="mb-8">
         
-        <div class="bg-blue-100 p-6 rounded-lg">
+        {{-- ID del usuario --}}
+        <div class="bg-blue-500 h-[25rem] w-[50rem] p-6 rounded-lg relative"
+        style="
+        background-image: url('{{asset('storage/texturas/IDBackground.png')}}');
+        background-size: cover;
+        background-repeat: no-repeat; 
+        background-attachment: local;
+        background-position: center;
+        ">
             {{-- Fecha de unión, posts creados, likes recibidos --}}
-            <h2 class="text-2xl font-bold">{{auth()->user()->name}}</h2>
-            <p>Miembro desde: {{auth()->user()->created_at->format('d/m/Y')}}</p>
-            <p>Posts creados: {{$userStats['postsCount']}}</p>
-            <p>Likes recibidos: {{$userStats['likesReceived']}}</p>
+            <svg viewBox="0 0 400 100" style="width: 100%; height: auto; font-size: 1.25rem;" class="absolute top-2 right-1">
+                <defs>
+                    <path id="wave" d="M 0,75 Q 200,-8 400,75" fill="none"/>
+                </defs>
+                <text style="font-size: 20px;">
+                    <textPath href="#wave" startOffset="50%" text-anchor="middle">
+                        {{-- {{auth()->user()->name}} --}}
+                        Identificación
+                    </textPath>
+                </text>
+            </svg>
+            
+            <h2 class="text-2xl font-bold"
+            style="
+            transform: perspective(500px) rotateX(20deg);
+            position:absolute;
+            top: 5rem;
+            left: 8rem;
+            "   
+            >Nombre:</h2>
+            <p
+            style="
+            position:absolute;
+            top: 6.5rem;
+            left: 8rem;
+            "
+            >{{auth()->user()->name}}</p>
+
+            <p style="
+            position:absolute;
+            top: 8.5rem;
+            left: 8rem;
+            "
+            >Miembro desde: {{$userStats['joinDate']->format('d/m/Y')}}</p>
+            
+            <svg viewBox="0 0 400 100" style="width: 100%; height: auto; font-size: 1.25rem;" class="absolute bottom-0.5 right-1">
+                <defs>
+                    <path id="wave" d="M 0,75 Q 200,-8 400,75" fill="none"/>
+                </defs>
+                <text style="font-size: 18px;">
+                    <textPath href="#wave" startOffset="50%" text-anchor="middle">
+                        {{-- {{auth()->user()->name}} --}}
+                        Contribuciones
+                    </textPath>
+                </text>
+            </svg>
+            
+            <p style="
+            position:absolute;
+            top: 19.2rem;
+            left: 13.5rem;
+            "
+            >{{$userStats['postsCount']}} Posts</p>
+            {{-- <p>Likes recibidos: {{$userStats['likesReceived']}}</p> --}}
+            <p  style="
+            position:absolute;
+            top: 19.2rem;
+            left: 22.5rem;
+            ">{{$likedPostsCount}} Likes</p>
+            <p  style="
+            position:absolute;
+            top: 19.2rem;
+            left: 30.5rem;
+            ">{{$commentedPostsCount}} Comentarios</p>
+            {{-- <p>Reacciones dadas: {{$reactions}}</p> --}}
+            {{-- <p>Foto de perfil: {{$userPic}}</p> --}}
+            <img src="{{$userPic}}" alt="foto de perfil del usuario"
+            style="
+            position: absolute;
+            top: 5.6rem;
+            right: 7.24rem;
+            width: 8.75rem;
+            height: 9.375rem;
+            "
+            >
         </div>
 
         {{-- Botones --}}
         <button @click="activeTab = 'liked'" :class="activeTab === 'liked' ? 'bg-blue-500 text-white' : 'bg-gray-200'">
-            Posts con Like ({{ $likedPosts->count() }})
+            Posts Likeados ({{ $likedPosts->count() }})
         </button>
         <button @click="activeTab = 'commented'" :class="activeTab === 'commented' ? 'bg-blue-500 text-white' : 'bg-gray-200'">
             Posts Comentados ({{ $commentedPosts->count() }})

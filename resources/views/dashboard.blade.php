@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div x-data="{activeView:'general'}">
+<div x-data="{activeView:'general'}" class="min-h-screen flex flex-col">
     {{-- <h1 class="text-2xl font-bold mb-6">Dashboard</h1> --}}
     {{-- Subnavbar interactivo para el usuario --}}
     <div class="w-2/4 h-[120px] mx-auto flex justify-center bg-gray-200" 
@@ -27,13 +27,13 @@
         </ul>
     </div>
 
-    <h2 class="text-xl font-semibold mb-4">últimos posts votados:</h2>
+    {{-- <h2 class="text-xl font-semibold mb-4">últimos posts votados:</h2>
     <div class="mb-12">
         <x-post-carousel :posts="$topPosts" :reactions="$reactions" />
-    </div>
+    </div> --}}
 
         {{-- Secciones según la vista seleccionada --}}
-    <div x-show="activeView === 'general'">
+    <div x-show="activeView === 'general'" class="mx-auto align-center justify-center">
         @include('dashboard.general')
     </div>
     

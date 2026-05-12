@@ -24,16 +24,20 @@ class DashboardController extends Controller
         // Usamos pluck() para extraer solamente el objeto post.
             // Sin pluck (Colección de likes Obj): [Like{id:1, post_id:5}, Like{id:2, post_id:8}, ...]
         $likedPosts = Auth::user()->likes()->with('post')->get()->pluck('post');
+        $likedPostsCount = $likedPosts->count();
 
         // Posts donde el usuario comentó (unique() porque un usuario puede comentar el mismo post varias veces):
             // Con pluck (Colección de posts Obj): [Post{id:5, title:'...'}, Post{id:8, title:'...'}, ...]
         $commentedPosts = Auth::user()->comments()->with('post')->get()->pluck('post')->unique();
+        $commentedPostsCount = $commentedPosts->count();
 
         // Posts que el usuario marcó como guardados(usamos la reacción 'saved')
         $savedPosts = Post::whereHas('reactions', function($query) {
             $query->where('reaction.nombre', 'saved')
                   ->whereRaw('post_reaction.user_id = ?', [Auth::id()]);
         })->get();
+
+        $userPic = Auth::user()->avatar;
 
         // Estadísticas del usuario
         $userStats = [
@@ -53,6 +57,9 @@ class DashboardController extends Controller
             'savedPosts' => $savedPosts,
             'reactions' => $reactions,
             'userStats' => $userStats,
+            'likedPostsCount' => $likedPostsCount,
+            'commentedPostsCount' => $commentedPostsCount,
+            'userPic' => $userPic,
         ]);
     }
 }

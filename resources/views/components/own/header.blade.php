@@ -72,41 +72,43 @@
             
             <!-- Filtros -->
             <div class="flex flex-wrap items-center gap-2">
-                <span>Filtrar por:</span>
-                <form action="{{ route('posts.filterByCategory') }}" method="GET" class="inline w-40">
-                    @php
-                        $categoryOptions = ['' => 'Todas las categorías'];
-                        foreach ($categories as $category) {
-                            $categoryOptions[$category->id] = $category->name;
-                        }
-                    @endphp
-                    <x-own.custom-select 
-                        name="id" 
-                        placeholder="Todas las categorías"
-                        :options="$categoryOptions"
-                        :selected="request('id')"
-                    />
-                </form>
+                @if(request()->routeIs('home.index') || request()->routeIs('posts.filterByCategory') || request()->routeIs('posts.orderPostsBy'))
+                    <span>Filtrar por:</span>
+                    <form action="{{ route('posts.filterByCategory') }}" method="GET" class="inline w-40">
+                        @php
+                            $categoryOptions = ['' => 'Todas las categorías'];
+                            foreach ($categories as $category) {
+                                $categoryOptions[$category->id] = $category->name;
+                            }
+                        @endphp
+                        <x-own.custom-select 
+                            name="id" 
+                            placeholder="Todas las categorías"
+                            :options="$categoryOptions"
+                            :selected="request('id')"
+                        />
+                    </form>
 
-                <span>Ordenar por:</span>
-                <form action="{{ route('posts.orderPostsBy') }}" method="GET" class="flex gap-2">
-                    <div class="w-40">
-                        <x-own.custom-select 
-                            name="metric" 
-                            placeholder="Seleccionar"
-                            :options="['likes' => 'Likes', 'comments' => 'Comentarios']"
-                            :selected="request('metric')"
-                        />
-                    </div>
-                    <div class="w-40">
-                        <x-own.custom-select 
-                            name="order" 
-                            placeholder="Seleccionar"
-                            :options="['asc' => 'Menos a más', 'desc' => 'Más a menos']"
-                            :selected="request('order')"
-                        />
-                    </div>
-                </form>
+                    <span>Ordenar por:</span>
+                    <form action="{{ route('posts.orderPostsBy') }}" method="GET" class="flex gap-2">
+                        <div class="w-40">
+                            <x-own.custom-select 
+                                name="metric" 
+                                placeholder="Seleccionar"
+                                :options="['likes' => 'Likes', 'comments' => 'Comentarios']"
+                                :selected="request('metric')"
+                            />
+                        </div>
+                        <div class="w-40">
+                            <x-own.custom-select 
+                                name="order" 
+                                placeholder="Seleccionar"
+                                :options="['asc' => 'Menos a más', 'desc' => 'Más a menos']"
+                                :selected="request('order')"
+                            />
+                        </div>
+                    </form>
+                @endif
             </div>
 
             @auth
