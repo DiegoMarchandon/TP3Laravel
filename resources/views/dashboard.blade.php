@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div x-data="{activeView:'general'}" class="min-h-screen flex flex-col">
+<div x-data="{activeView:'general'}" class="min-h-screen flex flex-col" @load="activeView = 'general'">
     {{-- <h1 class="text-2xl font-bold mb-6">Dashboard</h1> --}}
     {{-- Subnavbar interactivo para el usuario --}}
     <div class="w-2/4 h-[120px] mx-auto flex justify-center bg-gray-200" 
@@ -38,7 +38,7 @@
     </div>
     
     <div x-show="activeView === 'posts'">
-        Posts section
+        @include('dashboard.publications')
     </div>
     
     <div x-show="activeView === 'settings'">

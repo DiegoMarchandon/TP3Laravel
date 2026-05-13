@@ -62,4 +62,15 @@ class DashboardController extends Controller
             'userPic' => $userPic,
         ]);
     }
+
+    public function publications()
+    {
+        $posts = Auth::user()->posts()->get();
+        $reactions = Reaction::all();
+
+        return view('dashboard.publications',[
+            'posts' => $posts,
+            'reactions' => $reactions,
+        ]);
+    }
 }

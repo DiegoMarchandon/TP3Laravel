@@ -37,8 +37,8 @@
             style="
             transform: perspective(500px) rotateX(20deg);
             position:absolute;
-            top: 5rem;
-            left: 8rem;
+            top: 4.8rem;
+            left: 7rem;
             "   
             >Nombre:</h2>
             <p
@@ -122,10 +122,12 @@
         {{-- Contenido de cada sección (aparece/desaparece) --}}
         <div x-show="activeTab === 'liked'">
             @forelse($likedPosts as $post)
-                <div class="post-item mb-4 p-4 bg-gray-100 rounded">
+            <a href="{{ route('posts.show', $post->id) }}">
+                <div class="post-item mb-4 p-4 bg-gray-100 rounded cursor-pointer">
                     <h3 class="font-bold">{{$post->title}}</h3>
                     <p class="text-sm">{{Str::limit($post->content, 150)}}</p>
                 </div>
+            </a>
             @empty
                 <p class="text-gray-500">No hay posts con like</p>
             @endforelse

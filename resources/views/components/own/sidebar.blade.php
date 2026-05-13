@@ -9,7 +9,12 @@
     <nav>
         <div class="flex-1 p-4">
             <h2 class="text-xl font-semibold mb-4">Panel de Control</h2>
-            <p>Gestionar el contenido después (agregar notificaciones de respuestas, cambios de estado, sección de favoritos)</p>
+            <p>Agregar notificaciones de:<br>
+                - Respuestas a comentarios.<br>
+                - Solicitud de chat.<br>
+                - Cant. interacciones de un post recién subido.<br>
+                - Solicitud de seguidor.<br>
+            </p>
         </div>
         <ul>
             <li><a href="/" class="block py-2">Inicio</a></li>
