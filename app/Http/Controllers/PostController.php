@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Comment;
+use App\Events\CommentReplied;
+use App\Events\PostInteracted;
 use App\Models\Reaction;
 use App\Models\Post;
 use App\Models\Category;
@@ -65,16 +67,19 @@ class PostController extends Controller
 
     public function toggleLike(Post $post)
     {
-        // $user = auth()->user();
         $user = Auth::user();
 
         $existing = $post->likes()->where('user_id', $user->id)->first();
         if ($existing) {
-            // If the user already liked the post, remove the like
             $existing->delete();
         } else {
-            // Otherwise, create a new like
             $post->likes()->create(['user_id' => $user->id]);
+            // Disparar evento cuando alguien da like (solo si NO existía )
+            PostInteracted::dispatch(
+                $post->user,       // Dueño del post
+                $user,             // Quien da like
+                $post              // El post
+            );
         }
         return back();
     }
@@ -89,13 +94,27 @@ class PostController extends Controller
 
         $request->validate([
             'content' => 'required|max:1000',
+            'parent_comment_id' => 'nullable|exists:comments,id',
         ]);
 
+        // LOCAL: Crea el comentario
         $post->comments()->create([
             'content' => $request->content,
             'user_id' => Auth::id(),
             'post_id' => $post->id,
+            'parent_comment_id' => $request->input('parent_comment_id'),
         ]);
+
+        // LOCAL: Si es respuesta a otro comentario, disparamos este evento
+        if($request->has('parent_comment_id') && $request->input('parent_comment_id')){
+            $parentComment = Comment::find($request->input('parent_comment_id'));
+            
+            CommentReplied::dispatch(
+                $parentComment->user,
+                Auth::user(),
+                $post
+            );
+        }
 
         return back()->with('success', 'Comment added successfully.');
     }
