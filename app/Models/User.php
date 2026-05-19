@@ -56,6 +56,37 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 
+    // Usuarios que me siguen
+    public function followers()
+    {
+        return $this->hasMany(Follower::class, 'user_id');
+    }
+
+    // Usuarios a los que sigo
+    public function following()
+    {
+        return $this->hasMany(Follower::class, 'follower_id');
+    }
+
+    // Mensajes sent
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    // Mensajes received
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    // Chats (más complejo)
+    public function chats()
+    {
+        return Chat::where('user_id_1', $this->id)
+                ->orWhere('user_id_2', $this->id);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

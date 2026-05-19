@@ -4,7 +4,7 @@
 <div x-data="{activeView:'general'}" class="min-h-screen flex flex-col" @load="activeView = 'general'">
     {{-- <h1 class="text-2xl font-bold mb-6">Dashboard</h1> --}}
     {{-- Subnavbar interactivo para el usuario --}}
-    <div class="w-2/4 h-[120px] mx-auto flex justify-center bg-gray-200" 
+    <div class="w-2/4 h-[120px] mx-auto flex justify-center " 
     style="
     /* background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 85%, rgba(255,255,255,1) 100%), 
     url('{{asset('storage/texturas/subNavbarBackground.png')}}'); */

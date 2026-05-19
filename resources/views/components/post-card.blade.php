@@ -1,7 +1,7 @@
 @props(['post', 'reactions'])
 
 <div> 
-    <div class="bg-gradient-to-br from-yellow-100 via-yellow-50 to-yellow-100 border border-yellow-300 text-gray-800 shadow-md rounded-xl p-6 max-w-2xl w-full mx-auto break-words
+    <div class="bg-gradient-to-br from-yellow-100 via-yellow-50 to-yellow-200 border border-yellow-300 text-gray-800 shadow-md rounded-xl p-6 max-w-2xl w-full mx-auto break-words
       transition-shadow duration-300 hover:shadow-lg 
       dark:bg-gradient-to-br dark:from-stone-800 dark:via-stone-900 dark:to-stone-800 dark:border-stone-600 dark:text-gray-200 
       dark:hover:shadow-[0_0_15px_#00ff75,0_0_25px_#3700ff]">
@@ -15,11 +15,11 @@
 
         {{-- Título y metadata --}}
         <h2 class="text-xl font-bold mb-1">{{ $post->title }}</h2>
-        <p class="text-sm text-yellow-800 dark:text-yellow-300 mb-2">
-            Publicado por <span class="font-semibold">{{ $post->user->name ?? 'Anónimo' }}</span> 
-            en <span class="italic">{{ $post->category->name ?? 'Sin categoría' }}</span>
+        <p class="text-sm text-yellow-800 dark:text-yellow-300 inline">
+            Publicado por <span class="font-semibold"><x-user-profile-modal :user="$post->user" /></span> 
+            en <span class="italic font-bold">{{ $post->category->name ?? 'Sin categoría' }}</span>
         </p>
-        <p class="text-base mb-3">{{ Str::limit($post->content, 200) }}</p>
+        <p class="text-base mt-3 mb-3">{{ Str::limit($post->content, 200) }}</p>
 
         {{-- Botones de interacción --}}
         <div class="flex flex-wrap gap-2 mb-3">

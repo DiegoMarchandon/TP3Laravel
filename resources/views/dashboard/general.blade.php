@@ -12,7 +12,7 @@
     <div class="mb-8">
         
         {{-- ID del usuario --}}
-        <div class="bg-blue-500 h-[25rem] w-[50rem] p-6 rounded-lg relative"
+        <div class=" h-[25rem] w-[50rem] p-6 rounded-3xl relative backdrop-blur-sm bg-white/10"
         style="
         background-image: url('{{asset('storage/texturas/IDBackground.png')}}');
         background-size: cover;
@@ -99,33 +99,56 @@
         </div>
 
         {{-- Botones --}}
-        <button @click="activeTab = 'liked'" :class="activeTab === 'liked' ? 'bg-blue-500 text-white' : 'bg-gray-200'">
-            Posts Likeados ({{ $likedPosts->count() }})
-        </button>
-        <button @click="activeTab = 'commented'" :class="activeTab === 'commented' ? 'bg-blue-500 text-white' : 'bg-gray-200'">
-            Posts Comentados ({{ $commentedPosts->count() }})
-        </button>
-        <button @click="activeTab = 'saved'" :class="activeTab === 'saved' ? 'bg-blue-500 text-white' : 'bg-gray-200'">
-            Posts Guardados ({{ $savedPosts->count() }})
-        </button>
+        @php 
+            $buttons = [
+                [
+                    'tab' => 'liked',
+                    'label' => 'Posts Likeados',
+                    'count' => $likedPosts->count(),
+                ],
+                [
+                    'tab' => 'commented',
+                    'label' => 'Posts Comentados',
+                    'count' => $commentedPosts->count(),
+                ],
+                [
+                    'tab' => 'saved',
+                    'label' => 'Posts Guardados',
+                    'count' => $savedPosts->count(),
+                ],
+            ];
 
-
+            $activeClasses = 'bg-red-700 text-amber-400 font-extrabold border-2 border-yellow-400 p-2 outline outline-2 outline-black';
+            $inactiveClasses = 'bg-amber-400 text-red-800 font-extrabold border-2 border-black p-2 outline outline-2 outline-red-600';
+        @endphp
 
         {{-- Secciones con tabs/buttons para cambiar  --}}
-        <div class="tabs mb-4">
-            {{-- Usar el componente post-card o parecido --}}
-            <button @click="activeTab = 'liked'"></button>
-            <button @click="activeTab= 'commented'"></button>
-            <button @click="activeTab = 'saved'"></button>
+        <div class="mt-2 mb-4 flex gap-4">
+            @foreach ($buttons as $button)
+                <button
+                    @click = "activeTab = '{{$button['tab']}}'"
+                    :class="activeTab === '{{$button['tab']}}' ? '{{$activeClasses}}':'{{$inactiveClasses}}'"
+                >
+                {{$button['label']}} ({{$button['count']}})
+                </button>
+            @endforeach
         </div>
-        
+
         {{-- Contenido de cada sección (aparece/desaparece) --}}
         <div x-show="activeTab === 'liked'">
             @forelse($likedPosts as $post)
             <a href="{{ route('posts.show', $post->id) }}">
-                <div class="post-item mb-4 p-4 bg-gray-100 rounded cursor-pointer">
-                    <h3 class="font-bold">{{$post->title}}</h3>
-                    <p class="text-sm">{{Str::limit($post->content, 150)}}</p>
+                <div class="post-item flex flex-col items-center justify-center h-[12rem] w-full md:w-[50rem] mb-4 p-4 rounded cursor-pointer"
+                style="
+                    background-image: url('{{asset('storage/texturas/PostsLiked.png')}}');
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat; 
+                    background-attachment: local;
+                    background-position: center;
+                    "
+                >
+                    <h3 class="font-bold mt-6 mb-2">{{$post->title}}</h3>
+                    <p class="text-sm ml-4 md:ml-12 mr-4 md:mr-12">{{Str::limit($post->content, 150)}}</p>
                 </div>
             </a>
             @empty
@@ -135,9 +158,17 @@
         
         <div x-show="activeTab === 'commented'">
             @forelse($commentedPosts as $post)
-                <div class="post-item mb-4 p-4 bg-gray-100 rounded">
-                    <h3 class="font-bold">{{$post->title}}</h3>
-                    <p class="text-sm">{{Str::limit($post->content, 150)}}</p>
+                <div class="post-item flex flex-col items-center justify-center h-[10rem] md:h-[12rem] w-full md:w-[50rem] mb-4 p-2 md:p-4 rounded cursor-pointer"
+                    style="
+                    background-image: url('{{asset('storage/texturas/PostsCommented.png')}}');
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat; 
+                    background-attachment: local;
+                    background-position: center;
+                    "
+                >
+                    <h3 class="font-bold md:ml-4 mt-4 md:mt-6 mb-1 md:mb-2">{{$post->title}}</h3>
+                    <p class="text-sm self-end mr-10">{{Str::limit($post->content, 80)}}</p>
                 </div>
             @empty
                 <p class="text-gray-500">No hay posts comentados</p>
@@ -146,9 +177,16 @@
         
         <div x-show="activeTab === 'saved'">
             @forelse($savedPosts as $post)
-                <div class="post-item mb-4 p-4 bg-gray-100 rounded">
-                    <h3 class="font-bold">{{$post->title}}</h3>
-                    <p class="text-sm">{{Str::limit($post->content, 150)}}</p>
+                <div class="post-item flex flex-col items-center justify-center h-[20rem] md:h-[18rem] w-full md:w-[50rem] mb-4 p-2 md:p-4 rounded cursor-pointer"
+                    style="
+                    background-image: url('{{asset('storage/texturas/PostSaved.png')}}');
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat; 
+                    background-attachment: local;
+                    background-position: center;
+                    ">
+                    <h3 class="font-bold mb-4">{{$post->title}}</h3>
+                    <p class="text-sm ml-2 mr-2">{{Str::limit($post->content, 300)}}</p>
                 </div>
             @empty
                 <p class="text-gray-500">No hay posts guardados</p>

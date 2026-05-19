@@ -30,5 +30,115 @@
             </div>
             
         </div>
+        <script>
+            function notificationDropdown() {
+                return {
+                    isOpen: false,
+                    notifications: [],
+                    unreadCount: 0,
+                    
+                    init() {
+                        this.fetchNotifications();
+                        // Actualizar notificaciones cada 10 segundos
+                        setInterval(() => this.fetchNotifications(), 10000);
+                    },
+                    // LOCAL: Trae las notificaciones (y la cantidad) no leídas aún
+                    fetchNotifications() {
+                        fetch('/notifications')
+                            .then(res => res.json())
+                            .then(data => {
+                                this.notifications = data;
+                                this.unreadCount = data.filter(n => n.read_at === null).length;
+                            })
+                            .catch(err => console.error('Error fetching notifications:', err));
+                    },
+                    
+                    getNotificationMessage(notification) {
+                        const senderName = notification.sender?.name || 'Usuario';
+                        
+                        switch(notification.type) {
+                            case 'comment_reply':
+                                return `${senderName} respondió tu comentario`;
+                            case 'post_interaction':
+                                return `Tu post tiene nuevos likes`;
+                            case 'chat_request':
+                                return `${senderName} quiere interactuar contigo`;
+                            case 'follow_request':
+                                return `${senderName} desea seguirte`;
+                            default:
+                                return 'Nueva notificación';
+                        }
+                    },
+                    
+                    formatDate(date) {
+                        const d = new Date(date);
+                        return d.toLocaleString('es-AR', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric', 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                        });
+                    },
+                    
+                    openNotification(notification) {
+                        // Marcar como leído
+                        if (!notification.read_at) {
+                            fetch(`/notifications/${notification.id}/read`, { 
+                                method: 'PATCH',
+                                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+                            }).then(() => this.fetchNotifications());
+                        }
+                        
+                        // Redirigir según tipo
+                        switch(notification.type) {
+                            case 'comment_reply':
+                                window.location.href = `/posts/${notification.post_id}#comment-${notification.id}`;
+                                break;
+                            case 'post_interaction':
+                                window.location.href = `/posts/${notification.post_id}`;
+                                break;
+                            case 'chat_request':
+                            case 'follow_request':
+                                // TO-DO: Ver notificación completa con botones
+                                break;
+                        }
+                    },
+                    // LOCAL: actualiza 'read_at' con la fecha en la que fue marcada como leída (actual)
+                    markAllAsRead() {
+                        fetch('/notifications/mark-all-read', {
+                            method: 'PATCH',
+                            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+                        }).then(() => this.fetchNotifications());
+                    },
+                    
+                    // Aceptar solicitud de follow o chat
+                    acceptRequest(notification) {
+                        const route = notification.type === 'follow_request' 
+                            ? `/notifications/${notification.id}/accept-follow`
+                            : `/notifications/${notification.id}/accept-chat`;
+                        
+                        fetch(route, {
+                            method: 'PATCH',
+                            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+                        })
+                        .then(res => res.json())
+                        .then(() => this.fetchNotifications())
+                        .catch(err => console.error('Error:', err));
+                    },
+                    
+                    // Rechazar solicitud (eliminar notificación)
+                    deleteNotification(notificationId) {
+                        fetch(`/notifications/${notificationId}`, {
+                            method: 'DELETE',
+                            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+                        })
+                        .then(res => res.json())
+                        .then(() => this.fetchNotifications())
+                        .catch(err => console.error('Error:', err));
+                    }
+                };
+            }
+        </script>
     </body>
 </html>

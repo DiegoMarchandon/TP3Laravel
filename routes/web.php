@@ -6,7 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -38,6 +40,24 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/posts/{post}/make-comment', [PostController::class, 'makeComment'])->name('posts.makeComment');
     Route::post('/posts/{post}/react/{reaction}', [PostReactionController::class, 'store'])->name('posts.react');
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+        // Notificaciones
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('notifications.unreadCount');
+    Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::patch('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::patch('/notifications/{notification}/accept-follow', [UserController::class, 'acceptFollow'])->name('notifications.acceptFollow');
+    Route::patch('/notifications/{notification}/accept-chat', [UserController::class, 'acceptChat'])->name('notifications.acceptChat');
+
+
+    Route::post('/users/{user}/follow', [UserController::class, 'follow'])->name('users.follow');
+    Route::post('/users/{user}/chat', [UserController::class, 'chat'])->name('users.chat');
+
+    // Chat
+    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+    Route::get('/chats/{chatId}/messages', [ChatController::class, 'messages'])->name('chats.messages');
+    Route::post('/chats/{chatId}/messages', [ChatController::class, 'storeMessage'])->name('chats.storeMessage');
 });
 Route::get('/',[HomeController::class, 'getHome'])->name('home.index');
 Route::get('/posts/filter/category', [PostController::class, 'filterByCategory'])->name('posts.filterByCategory');

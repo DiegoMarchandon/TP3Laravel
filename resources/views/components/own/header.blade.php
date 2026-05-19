@@ -19,6 +19,13 @@
         pointer-events: none;
     }
     
+    .btn-post{
+        background-image: url('/storage/texturas/shine-caro.png');
+        background-size: auto;
+        background-repeat: repeat;
+        opacity: 1;
+    }
+
     header {
         box-shadow:
         inset 0 2px 0 rgba(0,0,0,0),
@@ -114,7 +121,9 @@
             @auth
                 <span>Hola, {{ Auth::user()->name }}</span>
                 <img src="/storage/logos/NauticStar.png" alt="separador" class="h-12 w-14 opacity-80">
-                <a href="{{ route('posts.create') }}" class="px-3 py-2 rounded bg-yellow-500 hover:bg-yellow-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700">Nuevo Post</a>
+                <a href="{{ route('posts.create') }}" class="tracking-wider px-3 py-2 btn-post rounded-t-lg bg-amber-500 border-b-4 border-b-gray-800 border-r-2 border-gray-500 hover:bg-yellow-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700"
+                style="font-family: 'Playfair Display'"
+                >Nuevo Post</a>
                 <img src="/storage/logos/NauticStar.png" alt="separador" class="h-12 w-14 opacity-80">
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
