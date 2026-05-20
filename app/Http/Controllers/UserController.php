@@ -63,9 +63,13 @@ class UserController extends Controller
         return back()->with('success', 'Solicitud de chat enviada');
     }   
 
-    public function acceptFollow(Notification $notification)
+    public function acceptFollow(Request $request, Notification $notification)
     {
         if ($notification->type !== 'follow_request') {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Notificación inválida'], 422);
+            }
+
             return back()->with('error', 'Notificación inválida');
         }
 
@@ -77,14 +81,22 @@ class UserController extends Controller
         ]);
 
         $notification->update(['read_at' => now()]);
-        
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true]);
+        }
+
         return back()->with('success', 'Ahora tienes un nuevo seguidor');
     }
 
     // Aceptar solicitud de chat
-    public function acceptChat(Notification $notification)
+    public function acceptChat(Request $request, Notification $notification)
     {
         if ($notification->type !== 'chat_request') {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Notificación inválida'], 422);
+            }
+
             return back()->with('error', 'Notificación inválida');
         }
 
@@ -96,7 +108,11 @@ class UserController extends Controller
         ]);
 
         $notification->update(['read_at' => now()]);
-        
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true]);
+        }
+
         return back()->with('success', 'Chat aceptado');
     }
 }

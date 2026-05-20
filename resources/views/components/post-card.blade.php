@@ -1,10 +1,25 @@
 @props(['post', 'reactions'])
 
 <div> 
-    <div class="bg-gradient-to-br from-yellow-100 via-yellow-50 to-yellow-200 border border-yellow-300 text-gray-800 shadow-md rounded-xl p-6 max-w-2xl w-full mx-auto break-words
+    <div class="relative bg-gradient-to-br from-yellow-100 via-yellow-50 to-yellow-200 border border-yellow-300 text-gray-800 shadow-md rounded-xl p-6 max-w-2xl w-full mx-auto break-words
       transition-shadow duration-300 hover:shadow-lg 
       dark:bg-gradient-to-br dark:from-stone-800 dark:via-stone-900 dark:to-stone-800 dark:border-stone-600 dark:text-gray-200 
       dark:hover:shadow-[0_0_15px_#00ff75,0_0_25px_#3700ff]">
+
+        {{-- Reaccion guardado en esquina superior derecha --}}
+        @foreach($reactions as $reaction)
+            @if($reaction->nombre === 'saved')
+                <form action="{{ route('posts.react', ['post' => $post->id, 'reaction' => $reaction->id]) }}" method="POST" class="absolute top-3 right-3">
+                    @csrf
+                    <button type="submit" title="{{ $reaction->nombre }}" class="flex items-center gap-1 px-2 py-1 {{$post->reactions()->where('reaction_id',$reaction->id)->wherePivot('user_id',Auth::id())->exists() ? 'bg-black/40':'bg-black/10'}} hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
+                        <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->nombre }}" class="w-7 h-12">
+                        {{-- <span class="font-semibold">
+                            {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}
+                        </span> --}}
+                    </button>
+                </form>
+            @endif
+        @endforeach
         
         {{-- Imagen del post --}}
         @if($post->poster)
@@ -71,12 +86,14 @@
             @foreach($reactions as $reaction)
                 <form action="{{ route('posts.react', ['post' => $post->id, 'reaction' => $reaction->id]) }}" method="POST">
                     @csrf
-                    <button type="submit" title="{{ $reaction->name }}" class="flex items-center gap-1 px-2 py-1 {{$post->reactions()->where('reaction_id',$reaction->id)->wherePivot('user_id',Auth::id())->exists() ? 'bg-black/40':'bg-black/10'}}  hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
-                        <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->name }}" class="w-7 h-7">
-                        <span class="font-semibold">
-                            {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}
-                        </span>
-                    </button>
+                    @if($reaction->nombre !== 'saved')
+                        <button type="submit" title="{{ $reaction->nombre }}" class="flex items-center gap-1 px-2 py-1 {{$post->reactions()->where('reaction_id',$reaction->id)->wherePivot('user_id',Auth::id())->exists() ? 'bg-black/40':'bg-black/10'}}  hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
+                            <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->nombre }}" class="w-7 h-7">
+                            <span class="font-semibold">
+                                {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}
+                            </span>
+                        </button>
+                    @endif
                 </form>
             @endforeach
         </div>

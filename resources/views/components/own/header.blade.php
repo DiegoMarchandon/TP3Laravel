@@ -64,14 +64,13 @@
     <div class="flex flex-col p-2 border-b-2 border-t-2 border-black md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
         <!-- Título y toggle modo oscuro -->
         <div class="flex items-center justify-between w-full md:w-auto">
-            <h1 class="text-xl mx-2" style="font-family: 'Playfair Display', serif;">Mi Blog</h1>
-            {{-- <button id="darkModeToggle" class="ml-4 bg-yellow-400 hover:bg-yellow-500 dark:bg-blue-700 dark:hover:bg-blue-800 text-white px-3 py-2 rounded">
-                🌙
-            </button> --}}
-            <label id="darkModeToggle" class="switch-container">
+            {{-- <h1 class="text-xl mx-2" style="font-family: 'Playfair Display', serif;">Mi Blog</h1> --}}
+            {{-- TO DO: VOLVER A ACTIVAR CUANDO APLIQUE LOS ESTILOS EN TODA LA PAGINA--}}
+            {{-- <label id="darkModeToggle" class="switch-container">
                 <input type="checkbox">
                 <span class="slider"></span>
-              </label>
+              </label> --}}
+            <img src="storage/logos/typewrittersLogo.png" alt="typewritters logo" class="w-[14rem] h-[8rem] cursor-pointer transition-transform duration-200 hover:scale-105">
         </div>
 
         <!-- Controles -->
@@ -80,7 +79,8 @@
             <!-- Filtros -->
             <div class="flex flex-wrap items-center gap-2">
                 @if(request()->routeIs('home.index') || request()->routeIs('posts.filterByCategory') || request()->routeIs('posts.orderPostsBy'))
-                    <span>Filtrar por:</span>
+                <div class="flex flex-col mr-4">
+                    <span style="font-family: 'Playfair Display'; letter-spacing: 2px;">Filtrar por:</span>
                     <form action="{{ route('posts.filterByCategory') }}" method="GET" class="inline w-40">
                         @php
                             $categoryOptions = ['' => 'Todas las categorías'];
@@ -95,8 +95,10 @@
                             :selected="request('id')"
                         />
                     </form>
+                </div>
 
-                    <span>Ordenar por:</span>
+                <div class="flex flex-col">
+                    <span style="font-family: 'Playfair Display'; letter-spacing: 2px;">Ordenar por:</span>
                     <form action="{{ route('posts.orderPostsBy') }}" method="GET" class="flex gap-2">
                         <div class="w-40">
                             <x-own.custom-select 
@@ -115,6 +117,8 @@
                             />
                         </div>
                     </form>
+                </div>
+
                 @endif
             </div>
 

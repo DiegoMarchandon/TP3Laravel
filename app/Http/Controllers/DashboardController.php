@@ -49,6 +49,11 @@ class DashboardController extends Controller
             'likesReceived' => Auth::user()->posts()->with('likes')->get()->sum(fn($post)=>$post->likes->count()),
         ];
 
+        $userFollowersCount = Auth::user()
+            ->followers()
+            ->whereNotNull('accepted_at')
+            ->count();
+
         // Datos que pasamos a la vista
         return view('dashboard', [
             'topPosts' => $topPosts,
@@ -60,6 +65,7 @@ class DashboardController extends Controller
             'likedPostsCount' => $likedPostsCount,
             'commentedPostsCount' => $commentedPostsCount,
             'userPic' => $userPic,
+            'userFollowersCount' => $userFollowersCount,
         ]);
     }
 

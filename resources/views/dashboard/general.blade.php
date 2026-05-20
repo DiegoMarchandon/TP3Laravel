@@ -46,6 +46,8 @@
             position:absolute;
             top: 6.5rem;
             left: 8rem;
+            font-family: monospace;
+            font-size: 18px;
             "
             >{{auth()->user()->name}}</p>
 
@@ -53,9 +55,19 @@
             position:absolute;
             top: 8.5rem;
             left: 8rem;
+            font-family: monospace;
+            font-size: 18px;
             "
             >Miembro desde: {{$userStats['joinDate']->format('d/m/Y')}}</p>
             
+            <p style="
+            position:absolute;
+            top: 10.5rem;
+            left: 8rem;
+            font-family: monospace;
+            font-size: 18px;
+            ">Cantidad de seguidores: {{$userFollowersCount}}</p>
+
             <svg viewBox="0 0 400 100" style="width: 100%; height: auto; font-size: 1.25rem;" class="absolute bottom-0.5 right-1">
                 <defs>
                     <path id="wave" d="M 0,75 Q 200,-8 400,75" fill="none"/>
@@ -72,6 +84,8 @@
             position:absolute;
             top: 19.2rem;
             left: 13.5rem;
+            font-family: monospace;
+            font-size: 18px;
             "
             >{{$userStats['postsCount']}} Posts</p>
             {{-- <p>Likes recibidos: {{$userStats['likesReceived']}}</p> --}}
@@ -79,11 +93,15 @@
             position:absolute;
             top: 19.2rem;
             left: 22.5rem;
+            font-family: monospace;
+            font-size: 18px;
             ">{{$likedPostsCount}} Likes</p>
             <p  style="
             position:absolute;
             top: 19.2rem;
-            left: 30.5rem;
+            left: 30rem;
+            font-family: monospace;
+            font-size: 18px;
             ">{{$commentedPostsCount}} Comentarios</p>
             {{-- <p>Reacciones dadas: {{$reactions}}</p> --}}
             {{-- <p>Foto de perfil: {{$userPic}}</p> --}}

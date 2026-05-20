@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
-    // Obtener todas las notificaciones del usuario autenticado
+    // Obtener todas las notificaciones NO LEIDAS del usuario autenticado
     public function index()
     {
         $notifications = Auth::user()->notifications()
             ->with('sender')
+            ->whereNull('read_at')
             ->orderBy('created_at', 'desc')
             ->get();
         

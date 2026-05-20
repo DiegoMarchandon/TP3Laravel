@@ -1,4 +1,4 @@
-<div x-data="chatDropdown()" x-init="init()" class="relative">
+<div x-data="chatDropdown()" x-init="init()" @mousemove="handleDrag($event)" @mouseup="stopDrag()" class="relative">
     <!-- Botón para abrir chat -->
     <button @click="isOpen = !isOpen" class="block py-2 w-full text-left relative z-10 before:absolute before:inset-0 before:bg-gradient-to-l before:from-yellow-500 before:via-yellow-300/50 before:to-transparent before:opacity-0 hover:before:opacity-100 before:pointer-events-none before:transition-opacity before:duration-300">
         Chat
@@ -8,11 +8,17 @@
     <!-- Modal de chat -->
     <div x-show="isOpen"
         @click.away="isOpen = false"
-        class="fixed bg-white dark:bg-stone-900 border-2 border-gray-700 rounded shadow-xl z-[50] w-96 h-[500px] flex flex-col"
-        style="left: 360px; top: 150px;">
+        class="fixed border-2 border-gray-700 rounded shadow-xl z-[50] w-96 h-[500px] flex flex-col"
+        :style="{ 
+            left: posX + 'px', 
+            top: posY + 'px', 
+            cursor: isDragging ? 'grabbing' : 'default',
+            // backgroundImage: 'linear-gradient(135deg, rgba(254, 243, 199, 0.85) 0%, rgba(254, 215, 170, 0.85) 50%, rgba(254, 243, 199, 0.85) 100%)',
+            // backgroundColor: '#fef3c7'
+        }">
         
         <!-- Encabezado -->
-        <div class="p-3 border-b border-gray-300 dark:border-stone-700 bg-yellow-400 dark:bg-stone-800">
+        <div @mousedown="startDrag($event)" class="p-3 border-b border-gray-300 dark:border-stone-700 bg-yellow-400 dark:bg-stone-800 cursor-grab active:cursor-grabbing select-none">
             <h3 class="font-bold text-sm">Mis Chats</h3>
         </div>
 
@@ -38,17 +44,17 @@
             </div>
 
             <!-- Panel derecho: Mensajes -->
-            <div class="w-2/3 flex flex-col">
-                <div x-show="!selectedChat" class="flex-1 flex items-center justify-center text-gray-400 text-sm">
+            <div class="w-2/3 flex flex-col bg-yellow-300/30">
+                <div x-show="!selectedChat" class="flex-1 flex items-center justify-center text-gray-600 font-bold text-sm">
                     Selecciona un chat
                 </div>
 
                 <div x-show="selectedChat" class="flex flex-col h-full">
                     <!-- Mensajes -->
-                    <div class="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50 dark:bg-stone-800">
+                    <div class="flex-1 overflow-y-auto p-3 space-y-2 dark:bg-stone-800">
                         <template x-for="message in messages" :key="message.id">
                             <div :class="message.sender_id === currentUserId ? 'justify-end' : 'justify-start'" class="flex">
-                                <div :class="message.sender_id === currentUserId ? 'bg-blue-500 text-white rounded-tl-lg rounded-br-lg' : 'bg-gray-200 dark:bg-stone-700 text-black dark:text-white rounded-tr-lg rounded-bl-lg'"
+                                <div :class="message.sender_id === currentUserId ? 'bg-[#FFFF00] border-2 border-black text-black rounded-tl-lg rounded-br-lg' : 'bg-gray-200 dark:bg-stone-700 text-black dark:text-white rounded-tr-lg rounded-bl-lg'"
                                     class="px-3 py-2 text-xs max-w-[200px] break-words">
                                     <p x-text="message.content"></p>
                                     <p class="text-xs mt-1 opacity-75" x-text="formatTime(message.created_at)"></p>
@@ -62,7 +68,7 @@
                         <form @submit.prevent="sendMessage()" class="flex gap-1">
                             <input type="text" x-model="messageContent" placeholder="Escribe un mensaje..." 
                                 class="flex-1 text-xs px-2 py-1 border border-gray-300 rounded dark:bg-stone-800 dark:border-stone-600 dark:text-white">
-                            <button type="submit" class="px-3 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600">
+                            <button type="submit" class="px-3 py-1 text-xs bg-amber-500 text-white rounded hover:bg-blue-600">
                                 Enviar
                             </button>
                         </form>
@@ -82,6 +88,13 @@ function chatDropdown() {
         messages: [],
         messageContent: '',
         currentUserId: {{ Auth::id() }},
+        
+        // Propiedades para drag
+        isDragging: false,
+        dragOffsetX: 0,
+        dragOffsetY: 0,
+        posX: 300,
+        posY: 180,
 
         init() {
             this.fetchChats();
@@ -137,6 +150,23 @@ function chatDropdown() {
                 this.fetchMessages(this.selectedChat.id);
             })
             .catch(err => console.error('Error sending message:', err));
+        },
+
+        // Métodos para drag
+        startDrag(e) {
+            this.isDragging = true;
+            this.dragOffsetX = e.clientX - this.posX;
+            this.dragOffsetY = e.clientY - this.posY;
+        },
+
+        handleDrag(e) {
+            if (!this.isDragging) return;
+            this.posX = e.clientX - this.dragOffsetX;
+            this.posY = e.clientY - this.dragOffsetY;
+        },
+
+        stopDrag() {
+            this.isDragging = false;
         },
 
         formatTime(date) {

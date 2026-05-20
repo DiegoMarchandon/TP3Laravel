@@ -66,11 +66,21 @@ class ChatController extends Controller
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
+        $content = request()->input('content');
+        if (!$content || !trim($content)) {
+            return response()->json(['error' => 'Mensaje vacío'], 422);
+        }
+
+        $receiverId = $chat->user_id_1 === $userId ? $chat->user_id_2 : $chat->user_id_1;
+
         $message = Message::create([
             'chat_id' => $chatId,
             'sender_id' => $userId,
-            'content' => request()->input('content')
+            'receiver_id' => $receiverId,
+            'content' => $content,
         ]);
+
+        $chat->touch();
 
         return response()->json($message);
     }
