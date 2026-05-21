@@ -20,6 +20,7 @@ RUN apk add --no-cache \
         supervisor \
         icu-dev \
         oniguruma-dev \
+    postgresql-dev \
         libzip-dev \
         libpng-dev \
         freetype-dev \
