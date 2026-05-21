@@ -46,7 +46,7 @@ class PostController extends Controller
         // dd("pasó la validación");
 
         if($request->hasFile('poster')){
-            $posterPath = $request->file('poster')->store('posters','public');
+            $posterPath = $request->file('poster')->store('posters');
         }elseif($request->poster_url){
             // si la URL del poster es proporcionada, la usamos
             $posterUrl = $request->poster_url;
@@ -204,7 +204,7 @@ class PostController extends Controller
         $posterPath = $post->poster; // Keep the existing poster path
         $posterUrl = $post->poster_url; // Keep the existing poster URL
         if ($request->hasFile('poster')) {
-            $posterPath = $request->file('poster')->store('posters', 'public');
+            $posterPath = $request->file('poster')->store('posters');
             $posterUrl = null;
         }
         elseif ($request->filled('poster_url')) {

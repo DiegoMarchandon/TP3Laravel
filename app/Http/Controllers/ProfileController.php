@@ -38,11 +38,11 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar')) {
             // Borrar avatar anterior si existe
             if($user->avatar){
-                Storage::disk('public')->delete($user->avatar);
+                Storage::delete($user->avatar);
             }
 
             // Guardar nueva imagen
-            $path = $request->file('avatar')->store('avatars','public');
+            $path = $request->file('avatar')->store('avatars');
             $validated['avatar'] = $path;
         }
 

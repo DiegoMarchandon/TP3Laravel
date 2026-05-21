@@ -26,7 +26,7 @@
 
         <label class="mt-2 text-sm text-gray-500 block" for="poster">Imagen actual:</label>
         @if($post->poster)
-            <img src="{{ asset('storage/' . $post->poster) }}" alt="Imagen del post" class="max-w-[300px] h-auto mt-2">
+            <img src="{{ Storage::url($post->poster) }}" alt="Imagen del post" class="max-w-[300px] h-auto mt-2">
         @elseif($post->poster_url)
             <img src="{{ $post->poster_url }}" alt="Imagen del post" class="max-w-[300px] h-auto mt-2">
         @endif

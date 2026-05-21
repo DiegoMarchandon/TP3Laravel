@@ -14,7 +14,7 @@
         
         {{-- Foto de perfil --}}
         <div class="text-center mb-3">
-            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="w-16 h-16 rounded-full mx-auto mb-2">
+            <img src="{{ Storage::url($user->avatar) }}" alt="{{ $user->name }}" class="w-16 h-16 rounded-full mx-auto mb-2">
             <h3 class="font-bold text-lg text-black drop-shadow-lg" style="font-family: 'Playfair Display'">{{ $user->name }}</h3>
         </div>
 

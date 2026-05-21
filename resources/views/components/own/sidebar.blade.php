@@ -13,7 +13,7 @@
         <div class="fixed top-100 h-screen">
             <div class="relative w-[15rem] h-[15rem] flex-shrink-0">
                 <img src="{{ asset('storage/texturas/MarcoFoto.png') }}" class=" h-full w-full" alt="marco de foto de usuario">
-                <img src="{{asset(Auth::user()->avatar)}}" class="absolute h-[8rem] w-[8rem]" alt="foto de perfil del usuario"
+                <img src="{{ Storage::url(Auth::user()->avatar) }}" class="absolute h-[8rem] w-[8rem]" alt="foto de perfil del usuario"
                 style="
                 bottom:4rem;
                 left:3.53rem;

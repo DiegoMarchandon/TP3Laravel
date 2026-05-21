@@ -12,7 +12,7 @@
                 <form action="{{ route('posts.react', ['post' => $post->id, 'reaction' => $reaction->id]) }}" method="POST" class="absolute top-3 right-3">
                     @csrf
                     <button type="submit" title="{{ $reaction->nombre }}" class="flex items-center gap-1 px-2 py-1 {{$post->reactions()->where('reaction_id',$reaction->id)->wherePivot('user_id',Auth::id())->exists() ? 'bg-black/40':'bg-black/10'}} hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
-                        <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->nombre }}" class="w-7 h-12">
+                        <img src="{{ Storage::url($reaction->imagen_url) }}" alt="{{ $reaction->nombre }}" class="w-7 h-12">
                         {{-- <span class="font-semibold">
                             {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}
                         </span> --}}
@@ -23,7 +23,7 @@
         
         {{-- Imagen del post --}}
         @if($post->poster)
-            <img src="{{ asset('storage/' . $post->poster) }}" alt="Imagen del post" class="max-w-[300px] h-auto rounded mb-4 shadow">
+            <img src="{{ Storage::url($post->poster) }}" alt="Imagen del post" class="max-w-[300px] h-auto rounded mb-4 shadow">
         @elseif ($post->poster_url)
             <img src="{{ $post->poster_url }}" alt="Imagen del post" class="max-w-[300px] h-auto rounded mb-4 shadow">
         @endif
@@ -88,7 +88,7 @@
                     @csrf
                     @if($reaction->nombre !== 'saved')
                         <button type="submit" title="{{ $reaction->nombre }}" class="flex items-center gap-1 px-2 py-1 {{$post->reactions()->where('reaction_id',$reaction->id)->wherePivot('user_id',Auth::id())->exists() ? 'bg-black/40':'bg-black/10'}}  hover:bg-black/20 rounded-full transition duration-200 shadow text-sm dark:bg-white/10 dark:hover:bg-white/20">
-                            <img src="{{ asset('storage/' . $reaction->imagen_url) }}" alt="{{ $reaction->nombre }}" class="w-7 h-7">
+                            <img src="{{ Storage::url($reaction->imagen_url) }}" alt="{{ $reaction->nombre }}" class="w-7 h-7">
                             <span class="font-semibold">
                                 {{ $post->reactions()->where('reaction_id', $reaction->id)->count() }}
                             </span>

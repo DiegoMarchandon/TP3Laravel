@@ -19,7 +19,7 @@
         @if (auth()->user()->avatar)
             <div class="mb-6 flex items-center gap-4 border-2 border-black bg-amber-100/70 p-3 shadow-[3px_3px_0_0_rgba(0,0,0,0.7)]">
                 <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-black">
-                    <img src="{{asset(Auth::user()->avatar)}}" alt="Avatar" class="w-full h-full object-cover">
+                    <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <p class="text-sm font-bold">Avatar actual</p>
