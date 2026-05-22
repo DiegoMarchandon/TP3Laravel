@@ -7,8 +7,8 @@
     <div class="w-2/4 h-[120px] mx-auto flex justify-center " 
     style="
     /* background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 85%, rgba(255,255,255,1) 100%), 
-    url('{{asset('storage/texturas/subNavbarBackground.png')}}'); */
-    background-image: url('{{asset('storage/texturas/subNavbarBackground.png')}}');
+    url('{{asset('images/texturas/subNavbarBackground.png')}}'); */
+    background-image: url('{{asset('images/texturas/subNavbarBackground.png')}}');
     background-size: 100% auto;
     background-repeat: no-repeat; 
     background-attachment: local;

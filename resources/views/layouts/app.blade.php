@@ -22,7 +22,7 @@
             <div class="flex">
                 @include('components.own.sidebar')
                 <main class="flex-1 p-6 bg-transparent text-gray-900 dark:text-gray-200"
-                style="background-image: linear-gradient(rgba(255, 255, 255, 0.45)), url('{{ asset('storage/texturas/blogBackground.png') }}');"
+                style="background-image: linear-gradient(rgba(255, 255, 255, 0.45)), url('{{ asset('images/texturas/blogBackground.png') }}');"
                 >
                     @yield('content')
                     

@@ -14,7 +14,7 @@
         {{-- ID del usuario --}}
         <div class=" h-[25rem] w-[50rem] p-6 rounded-3xl relative backdrop-blur-sm bg-white/10"
         style="
-        background-image: url('{{asset('storage/texturas/IDBackground.png')}}');
+        background-image: url('{{asset('images/texturas/IDBackground.png')}}');
         background-size: cover;
         background-repeat: no-repeat; 
         background-attachment: local;
@@ -158,7 +158,7 @@
             <a href="{{ route('posts.show', $post->id) }}">
                 <div class="post-item flex flex-col items-center justify-center h-[12rem] w-full md:w-[50rem] mb-4 p-4 rounded cursor-pointer"
                 style="
-                    background-image: url('{{asset('storage/texturas/PostsLiked.png')}}');
+                    background-image: url('{{asset('images/texturas/PostsLiked.png')}}');
                     background-size: 100% 100%;
                     background-repeat: no-repeat; 
                     background-attachment: local;
@@ -178,7 +178,7 @@
             @forelse($commentedPosts as $post)
                 <div class="post-item flex flex-col items-center justify-center h-[10rem] md:h-[12rem] w-full md:w-[50rem] mb-4 p-2 md:p-4 rounded cursor-pointer"
                     style="
-                    background-image: url('{{asset('storage/texturas/PostsCommented.png')}}');
+                    background-image: url('{{asset('images/texturas/PostsCommented.png')}}');
                     background-size: 100% 100%;
                     background-repeat: no-repeat; 
                     background-attachment: local;
@@ -197,7 +197,7 @@
             @forelse($savedPosts as $post)
                 <div class="post-item flex flex-col items-center justify-center h-[20rem] md:h-[18rem] w-full md:w-[50rem] mb-4 p-2 md:p-4 rounded cursor-pointer"
                     style="
-                    background-image: url('{{asset('storage/texturas/PostSaved.png')}}');
+                    background-image: url('{{asset('images/texturas/PostSaved.png')}}');
                     background-size: 100% 100%;
                     background-repeat: no-repeat; 
                     background-attachment: local;

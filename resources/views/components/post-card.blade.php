@@ -43,7 +43,7 @@
                 @csrf
                 <button type="submit" class="text-red-600 hover:underline dark:text-red-400">
                     <span style="font-family: 'Playfair Display'">
-                        <img src="storage/logos/pulgar.png" class="h-4 w-6 inline" alt="icono de me gusta">    
+                        <img src="/images/logos/pulgar.png" class="h-4 w-6 inline" alt="icono de me gusta">    
                         ME GUSTA ({{ $post->likes->count() }})
                     </span>
                 </button>
@@ -52,7 +52,7 @@
             {{-- Comentarios --}}
             <a href="{{ route('posts.show', $post->id) }}" class="text-blue-600 hover:underline dark:text-blue-400">
                 <span style="font-family: 'Playfair Display'">
-                    <img src="storage/logos/comentarios.png" class="h-4 w-6 inline" alt="icono de comentarios">  
+                    <img src="/images/logos/comentarios.png" class="h-4 w-6 inline" alt="icono de comentarios">  
                     COMENTARIOS ({{ $post->comments->count() }})
                 </span>
             </a>

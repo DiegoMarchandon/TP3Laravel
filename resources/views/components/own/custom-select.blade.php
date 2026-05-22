@@ -16,7 +16,7 @@
 
 .custom-select-button {
   cursor: pointer;
-  background-image: url('/storage/texturas/selectBackground2.png');
+  background-image: url('/images/texturas/selectBackground2.png');
   /* background-color: white; */
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -79,7 +79,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('/storage/texturas/desplegableBackground.png');
+  background-image: url('/images/texturas/desplegableBackground.png');
   background-size: 270px 490px;
   /* background-size:cover; */
   background-repeat: no-repeat;

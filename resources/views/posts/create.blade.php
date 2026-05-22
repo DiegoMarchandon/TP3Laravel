@@ -4,7 +4,7 @@
     <div>
         <div class="w-[25rem] h-[7rem] ml-[8rem]"
             style="
-            background-image: url('{{asset('storage/texturas/newPost.png')}}');
+            background-image: url('{{asset('images/texturas/newPost.png')}}');
             background-size: 100% 100%;
             background-repeat: no-repeat; 
             background-attachment: local;
@@ -38,7 +38,7 @@
             @csrf
             <div class="bg-yellow-300 h-[26rem] w-[46rem] flex flex-col items-center"
             style="
-                background-image: url('{{asset('storage/texturas/CreatePost.png')}}');
+                background-image: url('{{asset('images/texturas/CreatePost.png')}}');
                 background-size: 100% 100%;
                 background-repeat: no-repeat; 
                 background-attachment: local;

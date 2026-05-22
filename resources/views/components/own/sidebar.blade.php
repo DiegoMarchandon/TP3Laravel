@@ -12,7 +12,7 @@
     @auth
         <div class="fixed top-100 h-screen">
             <div class="relative w-[15rem] h-[15rem] flex-shrink-0">
-                <img src="{{ asset('storage/texturas/MarcoFoto.png') }}" class=" h-full w-full" alt="marco de foto de usuario">
+                <img src="{{ asset('images/texturas/MarcoFoto.png') }}" class=" h-full w-full" alt="marco de foto de usuario">
                 <img src="{{ Storage::url(Auth::user()->avatar) }}" class="absolute h-[8rem] w-[8rem]" alt="foto de perfil del usuario"
                 style="
                 bottom:4rem;
@@ -129,7 +129,7 @@
 
     @else
     <div style="position:absolute; top: 7rem;">
-        <img src="{{ asset('storage/texturas/PleaseLogInLogo.png') }}" alt="logo de please log in" class="opacity-55">
+        <img src="{{ asset('images/texturas/PleaseLogInLogo.png') }}" alt="logo de please log in" class="opacity-55">
         <span
          class="italic tracking-wide opacity-75" style="font-family: 'Playfair Display', serif;">
             Loguearse para acceder a las opciones

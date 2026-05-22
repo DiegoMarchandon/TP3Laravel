@@ -10,7 +10,7 @@
     <div x-show="open" 
          @click.away="open = false"
          class="absolute border-2 border-gray-300 dark:border-stone-700 rounded shadow-xl z-40 p-4 mt-2"
-         style="width: 300px; height:300px; top: 100%; left: 0; background-image: url('{{ asset('storage/texturas/MiniProfileModal.png') }}'); background-size: 100% 100%; background-repeat:no-repeat; background-position: center;">
+         style="width: 300px; height:300px; top: 100%; left: 0; background-image: url('{{ asset('images/texturas/MiniProfileModal.png') }}'); background-size: 100% 100%; background-repeat:no-repeat; background-position: center;">
         
         {{-- Foto de perfil --}}
         <div class="text-center mb-3">

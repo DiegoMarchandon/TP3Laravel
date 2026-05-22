@@ -1,7 +1,7 @@
     <form action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data"
         class="relative mx-auto w-full max-w-2xl p-6 md:p-8 border-2 border-black shadow-[6px_6px_0_0_rgba(0,0,0,0.8)]"
         style="
-        background-image: url('{{asset('storage/texturas/selectBackground3.png')}}');
+        background-image: url('{{asset('images/texturas/selectBackground3.png')}}');
         /* background-size: cover; */
         background-repeat: no-repeat;
         background-position: center;
