@@ -17,11 +17,15 @@ class PostSeeder extends Seeder
     {
         // $user = User::first();
         
+        $infoCategoryId = Category::where('name', 'Información')->value('id');
+        $ayudaCategoryId = Category::where('name', 'Ayuda')->value('id');
+        $disenosCategoryId = Category::where('name', 'Diseños')->value('id');
+
         Post::create([
             'title' => 'Se harían este tatuaje por USD $5.000 ?',
             'poster' => 'posters/5eioTRBGfZJLU1xXkCuP5IFIAzwXLz7MNbiF51eJ.png',
-            'habilitated' => true,
-            'category_id' => Category::findOrFail(2)->id,
+            'habilitated' => 'true',
+            'category_id' => $disenosCategoryId,
             'content' => 'Hola buenos días, este es mi primer post',
             'user_id' => User::findOrFail(2)->id,
         ]);
@@ -29,8 +33,8 @@ class PostSeeder extends Seeder
         Post::create([
             'title' => 'Qué opción recomiendan',
             'poster' => 'posters/9oiz5O5eS5xMtO5mKjf2dBmZH1RuBnf3mDr9UczN.png',
-            'habilitated' => false,
-            'category_id' => Category::findOrFail(5)->id,
+            'habilitated' => 'false',
+            'category_id' => $ayudaCategoryId,
             'content' => 'No me decido entre la elección de una sesión.',
             'user_id' => User::findOrFail(3)->id,
         ]);
@@ -38,8 +42,8 @@ class PostSeeder extends Seeder
         Post::create([
             'title' => 'Los peores colores para tatuarse.',
             'poster' => 'posters/A5VFYgbIdtMH4uvQipH58FWk82loSZOU5hE5br2i.png',
-            'habilitated' => true,
-            'category_id' => Category::findOrFail(1)->id,
+            'habilitated' => 'true',
+            'category_id' => $infoCategoryId,
             'content' => 'Estos son los peores colores para elegir al momento de realizarse un tatuaje.',
             'user_id' => User::findOrFail(4)->id,
         ]);
