@@ -12,5 +12,9 @@
             <p class="text-black p-4 inline border-4 border-gray-900 bg-yellow-300 dark:text-blue-200 dark:bg-blue-800">No hay publicaciones aún.</p>
         @endforelse
     </div>
+
+    <div class="mt-8 flex justify-center">
+        {{ $posts->links() }}
+    </div>
     
 @endsection

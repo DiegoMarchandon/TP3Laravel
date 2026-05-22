@@ -16,7 +16,9 @@ class HomeController extends Controller
     // }
     public function getHome()
     {
-        $posts = Post::with(['user', 'category', 'likes', 'comments', 'reactions'])->latest()->get();
+        $posts = Post::with(['user', 'category', 'likes', 'comments', 'reactions'])
+            ->latest()
+            ->paginate(10);
         $reactions = Reaction::all();
 
     return view('home', compact('posts', 'reactions'));
