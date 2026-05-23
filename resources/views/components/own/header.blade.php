@@ -93,6 +93,7 @@
                             placeholder="Todas las categorías"
                             :options="$categoryOptions"
                             :selected="request('id')"
+                            containerClass="filter-select"
                         />
                     </form>
                 </div>

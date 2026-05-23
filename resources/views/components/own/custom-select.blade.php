@@ -5,6 +5,7 @@
     'placeholder' => 'Seleccionar',
     'formAction' => null,
     'formMethod' => 'GET',
+  'containerClass' => '',
 ])
 
 <style>
@@ -19,10 +20,10 @@
   background-image: url('/images/texturas/selectBackground2.png');
   /* background-color: white; */
  
-  background-size: 100% auto;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
-  background-position: bottom center;
-  padding-bottom: 1.85rem;
+  background-position: center;
+  /* padding-bottom: 4.85rem; */
   background-blend-mode: overlay;
   color: #1f2937;
   padding: 0.75rem;
@@ -101,8 +102,8 @@
   justify-content: space-between;
 }
 
-.custom-select-option:last-child {
-  margin-bottom: 60px; 
+.custom-select-container.filter-select .custom-select-option:last-child {
+  margin-bottom: 120px; 
 }
 
 .custom-select-option:hover {
@@ -149,7 +150,7 @@
 }
 </style>
 
-<div class="custom-select-container" data-select-name="{{ $name }}">
+<div class="custom-select-container {{ $containerClass }}" data-select-name="{{ $name }}">
   <button 
     type="button" 
     class="custom-select-button w-full shadow-inner"
