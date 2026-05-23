@@ -18,9 +18,11 @@
   cursor: pointer;
   background-image: url('/images/texturas/selectBackground2.png');
   /* background-color: white; */
-  background-size: 100% 100%;
+ 
+  background-size: 100% auto;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: bottom center;
+  padding-bottom: 1.85rem;
   background-blend-mode: overlay;
   color: #1f2937;
   padding: 0.75rem;
